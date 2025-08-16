@@ -1,0 +1,20 @@
+{
+  "name": "@fore-ui/docs",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "serve": "vitepress dev",
+    "buildAndServe": "vitepress build && vitepress serve",
+    "preview": "vitepress preview",
+    "test": "echo \"Doc: no test specified\""
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  },
+  "author": "moushu",
+  "license": "Mulan PSL v2",
+  "dependencies": {
+    "fore-ui": "workspace:*"
+  }
+}

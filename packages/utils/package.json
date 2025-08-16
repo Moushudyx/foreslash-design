@@ -1,0 +1,56 @@
+{
+  "name": "@fore-ui/utils",
+  "version": "0.0.1",
+  "description": "fore-ui utils",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "module": "lib/index.mjs",
+  "browser": "lib/index.umd.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cmn.cjs",
+      "types": "./lib/index.d.ts"
+    },
+    "./umd": "./lib/index.umd.js"
+  },
+  "files": [
+    "lib",
+    "README.EN.md",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "rollup -c -w",
+    "serve": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "jest --coverage",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "rollup": "^4.38.0",
+    "rollup-plugin-dts": "^6.2.1",
+    "ts-jest": "^29.2.5",
+    "tslib": "^2.7.0",
+    "typescript": "^5.5.4"
+  },
+  "keywords": [
+    "foreslash",
+    "fore-ui",
+    "lib",
+    "util",
+    "utilities",
+    "typescript"
+  ],
+  "author": "moushu",
+  "license": "Mulan PSL v2",
+  "publishConfig": {
+    "access": "public"
+  }
+}

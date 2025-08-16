@@ -1,0 +1,21 @@
+{
+  "name": "fore-ui",
+  "description": "",
+  "scripts": {
+    "bootstrap": "pnpm i --registry=https://registry.npmmirror.com",
+    "serve": "turbo run serve",
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "docs:dev": "pnpm --filter \"docs\" dev",
+    "docs:build": "pnpm --filter \"docs\" build",
+    "docs:serve": "pnpm --filter \"docs\" serve",
+    "docs:preview": "pnpm --filter \"docs\" preview",
+    "docs:test": "pnpm --filter \"docs\" test"
+  },
+  "author": "moushu",
+  "license": "Mulan PSL v2",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  }
+}
