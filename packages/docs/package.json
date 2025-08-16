@@ -1,6 +1,7 @@
 {
   "name": "@foreslash-ui/docs",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
@@ -10,6 +11,7 @@
     "test": "echo \"Doc: no test specified\""
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
     "sass-embedded": "^1.90.0",
     "vitepress": "^1.6.4",
     "vue": "^3.5.18"
@@ -17,6 +19,7 @@
   "author": "moushu",
   "license": "Mulan PSL v2",
   "dependencies": {
+    "@vue/repl": "^4.6.3",
     "foreslash-ui": "workspace:*"
   }
 }
