@@ -1,5 +1,5 @@
 import DefaultTheme from "vitepress/theme";
-import { defineCustomElements } from "fore-ui/loader";
+import { defineCustomElements } from "foreslash-ui/loader";
 // import "./custom.css";
 
 export default {

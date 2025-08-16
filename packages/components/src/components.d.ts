@@ -5,70 +5,56 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ButtonType } from "./components/fs-button/fs-button";
+export { ButtonType } from "./components/fs-button/fs-button";
 export namespace Components {
-    interface FButton {
+    interface FsButton {
+        /**
+          * @default 'primary'
+         */
+        "type": ButtonType;
     }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface FsInput {
     }
 }
 declare global {
-    interface HTMLFButtonElement extends Components.FButton, HTMLStencilElement {
+    interface HTMLFsButtonElement extends Components.FsButton, HTMLStencilElement {
     }
-    var HTMLFButtonElement: {
-        prototype: HTMLFButtonElement;
-        new (): HTMLFButtonElement;
+    var HTMLFsButtonElement: {
+        prototype: HTMLFsButtonElement;
+        new (): HTMLFsButtonElement;
     };
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLFsInputElement extends Components.FsInput, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLFsInputElement: {
+        prototype: HTMLFsInputElement;
+        new (): HTMLFsInputElement;
     };
     interface HTMLElementTagNameMap {
-        "f-button": HTMLFButtonElement;
-        "my-component": HTMLMyComponentElement;
+        "fs-button": HTMLFsButtonElement;
+        "fs-input": HTMLFsInputElement;
     }
 }
 declare namespace LocalJSX {
-    interface FButton {
+    interface FsButton {
+        /**
+          * @default 'primary'
+         */
+        "type"?: ButtonType;
     }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface FsInput {
     }
     interface IntrinsicElements {
-        "f-button": FButton;
-        "my-component": MyComponent;
+        "fs-button": FsButton;
+        "fs-input": FsInput;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "f-button": LocalJSX.FButton & JSXBase.HTMLAttributes<HTMLFButtonElement>;
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "fs-button": LocalJSX.FsButton & JSXBase.HTMLAttributes<HTMLFsButtonElement>;
+            "fs-input": LocalJSX.FsInput & JSXBase.HTMLAttributes<HTMLFsInputElement>;
         }
     }
 }

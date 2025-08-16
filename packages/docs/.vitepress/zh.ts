@@ -5,7 +5,7 @@ const require = createRequire(import.meta.url)
 
 export const zh = defineConfig({
   lang: 'zh-Hans',
-  description: 'Fore-UI 是一个基于 Stencil 框架的 Web 组件库',
+  description: 'Foreslash-UI 是一个基于 Stencil 框架的 Web 组件库',
 
   themeConfig: {
     nav: nav(),
@@ -14,7 +14,7 @@ export const zh = defineConfig({
 
 
     editLink: {
-      pattern: 'https://github.com/Moushudyx/fore-ui/edit/master/packages/docs/:path',
+      pattern: 'https://github.com/Moushudyx/foreslash-ui/edit/master/packages/docs/:path',
       text: '在 GitHub 上编辑此页面',
     },
 
@@ -62,15 +62,20 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '/func/',
     },
     {
+      text: 'Vue 演练场',
+      link: '/playground/vue',
+      activeMatch: '/playground/vue',
+    },
+    {
       text: '参与贡献',
       items: [
         {
           text: '工单',
-          link: 'https://github.com/Moushudyx/fore-ui/issues',
+          link: 'https://github.com/Moushudyx/foreslash-ui/issues',
         },
         {
           text: '合并',
-          link: 'https://github.com/Moushudyx/fore-ui/pulls',
+          link: 'https://github.com/Moushudyx/foreslash-ui/pulls',
         },
       ],
     },

@@ -3,7 +3,7 @@ import { dts } from 'rollup-plugin-dts'
 
 const banner = `/*!
 Copyright (c) 2024-2025 moushu
-@fore-ui/utils is licensed under Mulan PSL v2.
+@foreslash-ui/utils is licensed under Mulan PSL v2.
 You can use this software according to the terms and conditions of the Mulan PSL v2.
 You may obtain a copy of Mulan PSL v2 at:
           http://license.coscl.org.cn/MulanPSL2

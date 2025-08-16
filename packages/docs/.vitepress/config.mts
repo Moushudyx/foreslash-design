@@ -4,12 +4,12 @@ import { en, enSearch } from './en'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Fore-UI",
+  title: "Foreslash-UI",
   description: "A Fancy Web Component Lib",
   rewrites: {
     "zh/:rest*": ":rest*",
   },
-  base: "/fore-ui/",
+  base: "/foreslash-ui/",
   cleanUrls: true,
 
   lastUpdated: true,
@@ -24,7 +24,7 @@ export default defineConfig({
       },
     },
     socialLinks: [
-      { icon: "github", link: "https://github.com/Moushudyx/fore-ui" },
+      { icon: "github", link: "https://github.com/Moushudyx/foreslash-ui" },
     ],
   },
   locales: {

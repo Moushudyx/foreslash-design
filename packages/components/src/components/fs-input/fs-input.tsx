@@ -1,15 +1,15 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'f-button',
-  styleUrl: 'f-button.css',
+  tag: 'fs-input',
+  styleUrl: 'fs-input.css',
   shadow: true,
 })
-export class FButton {
+export class FsInput {
   render() {
     return (
       <Host>
-        11<slot></slot>132123
+        <slot></slot>
       </Host>
     );
   }

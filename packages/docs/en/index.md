@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Fore-UI"
+  name: "Foreslash-UI"
   text: "A Fancy Web Component Lib"
   tagline: My great project tagline
   actions:

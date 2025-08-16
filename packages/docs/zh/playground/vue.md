@@ -1,0 +1,4 @@
+---
+pageClass: playground-page
+---
+<VuePlayground />

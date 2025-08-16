@@ -1,6 +1,11 @@
 {
-  "name": "fore-ui",
-  "description": "",
+  "name": "foreslash-design",
+  "private": true,
+  "description": "Foreslash Design System",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Moushudyx/foreslash-design.git"
+  },
   "scripts": {
     "bootstrap": "pnpm i --registry=https://registry.npmmirror.com",
     "serve": "turbo run serve",

@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'fore-ui',
+  namespace: 'foreslash-ui',
   outputTargets: [
     {
       type: 'dist',
@@ -23,4 +23,9 @@ export const config: Config = {
   testing: {
     browserHeadless: "shell",
   },
+  rollupConfig: {
+    inputOptions: {
+      external: ['foreslash', '@foreslash-ui/utils'] // 将需要排除的库添加到这里
+    },
+  }
 };

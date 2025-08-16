@@ -1,7 +1,7 @@
 {
-  "name": "@fore-ui/utils",
+  "name": "@foreslash-ui/utils",
   "version": "0.0.1",
-  "description": "fore-ui utils",
+  "description": "foreslash-ui utils",
   "type": "module",
   "main": "lib/index.mjs",
   "module": "lib/index.mjs",
@@ -42,7 +42,7 @@
   },
   "keywords": [
     "foreslash",
-    "fore-ui",
+    "foreslash-ui",
     "lib",
     "util",
     "utilities",

@@ -1,3 +1,3 @@
 # button
 
-<f-button>默认按钮</f-button>
+<fs-button>默认按钮</fs-button>

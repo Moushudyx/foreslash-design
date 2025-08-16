@@ -14,7 +14,7 @@ importers:
 
   packages/components:
     dependencies:
-      '@fore-ui/utils':
+      '@foreslash-ui/utils':
         specifier: workspace:*
         version: link:../utils
     devDependencies:
@@ -39,7 +39,7 @@ importers:
 
   packages/docs:
     dependencies:
-      fore-ui:
+      foreslash-ui:
         specifier: workspace:*
         version: link:../components
     devDependencies:

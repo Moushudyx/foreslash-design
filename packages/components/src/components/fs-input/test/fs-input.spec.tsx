@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { FButton } from '../f-button';
+import { FsInput } from '../fs-input';
 
-describe('f-button', () => {
+describe('fs-input', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [FButton],
-      html: `<f-button></f-button>`,
+      components: [FsInput],
+      html: `<fs-input></fs-input>`,
     });
     expect(page.root).toEqualHtml(`
-      <f-button>
+      <fs-input>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </f-button>
+      </fs-input>
     `);
   });
 });
