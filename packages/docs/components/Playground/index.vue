@@ -2,14 +2,25 @@
   <div
     :class="['tsx-playground', isFullPage ? 'tsx-playground-full-page' : '']"
   >
-    <div class="tsx-playground__editor">
-      <Editor
-        :code="currentCode"
-        :readonly="readonly"
-        :theme="theme"
-        :language="language"
-        @change="handleCodeUpdate"
-      />
+    <template v-if="showEditor || !isFirstShow">
+      <div v-show="showEditor" class="tsx-playground__editor">
+        <Editor
+          :code="currentCode"
+          :readonly="readonly"
+          :theme="theme"
+          :language="language"
+          @change="handleCodeUpdate"
+        />
+      </div>
+    </template>
+    <div v-if="!isFullPage" class="tsx-playground__handler">
+      <div
+        class="tsx-playground__handler-icon"
+        @click="handleToggleEditor"
+        :title="showEditor ? '收起代码' : '展开代码'"
+      >
+        {{ "<>" }}
+      </div>
     </div>
     <div class="tsx-playground__preview">
       <Previewer :code="currentCode" />
@@ -36,12 +47,20 @@ const props = withDefaults(
     isFullPage: false,
   }
 );
-
+const isFirstShow = ref(true); // 第一次展开前用 v-if 隐藏, 而后使用 v-show 显示
+const showEditor = ref(props.isFullPage);
 const currentCode = ref(props.code);
 const theme = ref<"dark" | "light">("light");
 const handleCodeUpdate = (newCode: string) => {
   currentCode.value = newCode;
 };
+const handleToggleEditor = () => {
+  showEditor.value = !showEditor.value;
+  if (showEditor.value && isFirstShow.value) {
+    isFirstShow.value = false;
+  }
+};
+
 onMounted(() => {
   // 监听主题变化
   theme.value = document.documentElement.classList.contains("dark")
@@ -104,12 +123,32 @@ onMounted(() => {
     }
     .tsx-playground__editor {
       // flex: 1;
-      height: 25vh;
+      height: 40vh;
       min-height: 256px;
+    }
+    .tsx-playground__handler {
+      display: flex;
+      justify-content: flex-end;
+      padding: 8px 12px;
+      .tsx-playground__handler-icon {
+        padding: 4px 6px;
+        border-radius: 4px;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 240ms ease;
+        background-color: #9991;
+        &:hover {
+          background-color: #9993;
+        }
+        &:active {
+          transition: background-color 60ms ease;
+          background-color: #9996;
+        }
+      }
     }
     .tsx-playground__preview {
       // flex: 1;
-      height: 25vh;
+      height: 20vh;
       min-height: 256px;
       padding: 4px 8px;
     }
