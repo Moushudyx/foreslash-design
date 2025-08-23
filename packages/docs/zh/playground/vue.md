@@ -1,4 +1,4 @@
 ---
-pageClass: playground-page
+pageClass: playground-page playground-page-vue
 ---
 <VuePlayground />

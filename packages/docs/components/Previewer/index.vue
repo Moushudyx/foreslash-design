@@ -90,7 +90,7 @@ const _renderPreview = (code: string) => {
       "exports",
       "Vue",
       ...propList.map(([key]) => key),
-      transformedCode
+      transformedCode || ''
     );
     executeCode(
       module,
@@ -134,7 +134,7 @@ const _renderPreview = (code: string) => {
   }
 };
 // 延迟 500ms 执行，如果此期间再次调用，取消之前的调用
-let timer = 0;
+let timer: ReturnType<typeof setTimeout> | undefined;
 const renderPreview = (code: string, delay = true) => {
   if (timer) {
     clearTimeout(timer);

@@ -62,6 +62,11 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '/func/',
     },
     {
+      text: 'TSX 演练场',
+      link: '/playground/jsx',
+      activeMatch: '/playground/jsx',
+    },
+    {
       text: 'Vue 演练场',
       link: '/playground/vue',
       activeMatch: '/playground/vue',

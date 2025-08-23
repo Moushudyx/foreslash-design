@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
+    "markdown-it-container": "^4.0.0",
     "sass-embedded": "^1.90.0",
     "vitepress": "^1.6.4",
     "vue": "^3.5.18"
@@ -20,8 +21,11 @@
   "license": "Mulan PSL v2",
   "dependencies": {
     "@babel/standalone": "^7.28.3",
+    "@shikijs/monaco": "^3.11.0",
     "@vue/repl": "^4.6.3",
     "foreslash": "^0.3.1",
-    "foreslash-ui": "workspace:*"
+    "foreslash-ui": "workspace:*",
+    "monaco-editor-core": "^0.52.2",
+    "shiki": "^3.11.0"
   }
 }
