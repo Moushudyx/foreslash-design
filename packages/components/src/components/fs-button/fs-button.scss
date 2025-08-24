@@ -1,0 +1,23 @@
+:host {
+  display: inline-block;
+  min-width: 36px;
+  padding: 8px 16px;
+  // &.fs-button {
+  //   &.fs-button-small {
+  //     min-width: 24px;
+  //     padding: 4px 8px;
+  //   }
+  //   &.fs-button-large {
+  //     min-width: 48px;
+  //     padding: 12px 24px;
+  //   }
+  // }
+}
+:host(.fs-button-small) {
+  min-width: 24px;
+  padding: 4px 8px;
+}
+:host(.fs-button-large) {
+  min-width: 48px;
+  padding: 12px 24px;
+}

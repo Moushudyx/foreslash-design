@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                                           | Default     |
-| -------- | --------- | ----------- | ---------------------------------------------- | ----------- |
-| `type`   | `type`    |             | `"flat" \| "link" \| "primary" \| "secondary"` | `'primary'` |
+| Property | Attribute | Description | Type                                                        | Default     |
+| -------- | --------- | ----------- | ----------------------------------------------------------- | ----------- |
+| `size`   | `size`    |             | `"default" \| "large" \| "middle" \| "small"`               | `undefined` |
+| `type`   | `type`    |             | `"default" \| "flat" \| "link" \| "primary" \| "secondary"` | `'primary'` |
 
 
 ----------------------------------------------

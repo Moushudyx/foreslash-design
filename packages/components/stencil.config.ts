@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'foreslash-ui',
@@ -27,5 +28,8 @@ export const config: Config = {
     inputOptions: {
       external: ['foreslash', '@foreslash-ui/utils'] // 将需要排除的库添加到这里
     },
-  }
+  },
+  plugins: [
+    sass()
+  ]
 };

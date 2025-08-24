@@ -5,10 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ButtonType } from "./components/fs-button/fs-button";
-export { ButtonType } from "./components/fs-button/fs-button";
+import { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
+export { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
 export namespace Components {
     interface FsButton {
+        "size": ButtonSize;
         /**
           * @default 'primary'
          */
@@ -37,6 +38,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface FsButton {
+        "size"?: ButtonSize;
         /**
           * @default 'primary'
          */
