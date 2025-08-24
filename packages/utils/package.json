@@ -40,6 +40,11 @@
     "tslib": "^2.7.0",
     "typescript": "^5.5.4"
   },
+  "dependencies": {
+    "bezier-easing": "^2.1.0",
+    "foreslash": "^0.3.1",
+    "tinycolor2": "^1.6.0"
+  },
   "keywords": [
     "foreslash",
     "foreslash-ui",

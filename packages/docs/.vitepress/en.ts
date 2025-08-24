@@ -10,7 +10,7 @@ export const en = defineConfig({
   themeConfig: {
     nav: nav(),
 
-    sidebar: { 'comp/': [...sidebarComp()] , 'func/': [...sidebarFunc()] },
+    sidebar: { 'en/comp/': [...sidebarComp()] , 'en/func/': [...sidebarFunc()], 'en/design/': [...sidebarDesign()] },
 
     editLink: {
       pattern: 'https://github.com/Moushudyx/foreslash/edit/master/docs/:path',
@@ -29,13 +29,18 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Components',
-      link: '/comp/',
-      activeMatch: '/comp/',
+      link: '/en/comp/',
+      activeMatch: '/en/comp/',
     },
     {
       text: 'Utilities',
-      link: '/func/',
-      activeMatch: '/func/',
+      link: '/en/func/',
+      activeMatch: '/en/func/',
+    },
+    {
+      text: 'Design',
+      link: '/en/design/',
+      activeMatch: '/en/design/',
     },
     {
       text: 'TSX Playground',
@@ -67,15 +72,16 @@ function nav(): DefaultTheme.NavItem[] {
 function sidebarComp(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: '快速开始',
-      link: 'comp/index',
+      text: 'Quick Start',
+
+      link: 'en/comp/index',
     },
     {
-      text: '基本组件',
-      base: 'comp/base/',
+      text: 'Basic Components',
+      base: 'en/comp/base/',
       collapsed: false,
       items: [
-        { text: 'button 按钮', link: 'button' },
+        { text: 'button Button', link: 'button' },
       ],
     },
   ]
@@ -84,8 +90,17 @@ function sidebarComp(): DefaultTheme.SidebarItem[] {
 function sidebarFunc(): DefaultTheme.SidebarItem[] {
   return [
     {
-      text: '快速开始',
-      link: 'func/index',
+      text: 'Utilities',
+      link: 'en/func/index',
+    },
+  ]
+}
+
+function sidebarDesign(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: 'Design',
+      link: 'en/design/index',
     },
   ]
 }

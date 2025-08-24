@@ -10,7 +10,7 @@ export const zh = defineConfig({
   themeConfig: {
     nav: nav(),
 
-    sidebar: { 'comp/': [...sidebarComp()] , 'func/': [...sidebarFunc()] },
+    sidebar: { 'comp/': [...sidebarComp()], 'func/': [...sidebarFunc()], 'design/': [...sidebarDesign()] },
 
 
     editLink: {
@@ -62,6 +62,11 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '/func/',
     },
     {
+      text: '设计',
+      link: '/design/',
+      activeMatch: '/design/',
+    },
+    {
       text: 'TSX 演练场',
       link: '/playground/jsx',
       activeMatch: '/playground/jsx',
@@ -109,6 +114,15 @@ function sidebarFunc(): DefaultTheme.SidebarItem[] {
     {
       text: '快速开始',
       link: 'func/index',
+    },
+  ]
+}
+
+function sidebarDesign(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '设计',
+      link: 'design/index',
     },
   ]
 }

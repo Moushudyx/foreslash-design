@@ -21,6 +21,7 @@
   "license": "Mulan PSL v2",
   "dependencies": {
     "@babel/standalone": "^7.28.3",
+    "@foreslash-ui/utils": "workspace:*",
     "@shikijs/monaco": "^3.11.0",
     "@vue/repl": "^4.6.3",
     "foreslash": "^0.3.1",

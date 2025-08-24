@@ -1,13 +1,14 @@
-import DefaultTheme from "vitepress/theme";
-import { defineCustomElements } from "foreslash-ui/loader";
+import DefaultTheme from 'vitepress/theme';
+import { defineCustomElements } from 'foreslash-ui/loader';
 // import Demo from "../../components/Demo/index.vue";
-import VuePlayground from "../../components/Playground/vue.vue";
-import Previewer from "../../components/Previewer/index.vue";
-import Coder from "../../components/Playground/index.vue";
-import Layout from "../../components/Layout/index.vue";
+import VuePlayground from '../../components/Playground/vue.vue';
+import Previewer from '../../components/Previewer/index.vue';
+import Coder from '../../components/Playground/index.vue';
+import Layout from '../../components/Layout/index.vue';
+import ColorPanel from '../../components/Color/panel.vue';
 
-import "./custom.scss";
-import { h } from "vue";
+import './custom.scss';
+import { h } from 'vue';
 
 export default {
   ...DefaultTheme,
@@ -21,10 +22,11 @@ export default {
     if (window) {
       defineCustomElements(window);
       // app.component("Demo", Demo);
-      app.component("Previewer", Previewer);
-      app.component("VuePlayground", VuePlayground);
-      app.component("Coder", Coder);
-      app.component("TsxPlayground", Coder);
+      app.component('Previewer', Previewer);
+      app.component('VuePlayground', VuePlayground);
+      app.component('Coder', Coder);
+      app.component('TsxPlayground', Coder);
+      app.component('ColorPanel', ColorPanel);
     }
   },
 };
