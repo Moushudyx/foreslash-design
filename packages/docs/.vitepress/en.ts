@@ -38,15 +38,26 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '/func/',
     },
     {
-      text: 'Foreslash',
+      text: 'TSX Playground',
+      link: '/playground/jsx',
+      activeMatch: '/playground/jsx',
+    },
+    {
+      text: 'Vue Playground(WIP)',
+
+      link: '/playground/vue',
+      activeMatch: '/playground/vue',
+    },
+    {
+      text: 'Contributing',
       items: [
         {
           text: 'Issues',
-          link: 'https://github.com/Moushudyx/foreslash/issues',
+          link: 'https://github.com/Moushudyx/foreslash-ui/issues',
         },
         {
           text: 'Pull Requests',
-          link: 'https://github.com/Moushudyx/foreslash/pulls',
+          link: 'https://github.com/Moushudyx/foreslash-ui/pulls',
         },
       ],
     },

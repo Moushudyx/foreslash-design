@@ -67,7 +67,7 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '/playground/jsx',
     },
     {
-      text: 'Vue 演练场',
+      text: 'Vue 演练场(施工中)',
       link: '/playground/vue',
       activeMatch: '/playground/vue',
     },
