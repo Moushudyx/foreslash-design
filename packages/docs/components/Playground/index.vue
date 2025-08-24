@@ -2,29 +2,31 @@
   <div
     :class="['tsx-playground', isFullPage ? 'tsx-playground-full-page' : '']"
   >
-    <template v-if="showEditor || !isFirstShow">
-      <div v-show="showEditor" class="tsx-playground__editor">
-        <Editor
-          :code="currentCode"
-          :readonly="readonly"
-          :theme="theme"
-          :language="language"
-          @change="handleCodeUpdate"
-        />
+    <ClientOnly>
+      <template v-if="showEditor || !isFirstShow">
+        <div v-show="showEditor" class="tsx-playground__editor">
+          <Editor
+            :code="currentCode"
+            :readonly="readonly"
+            :theme="theme"
+            :language="language"
+            @change="handleCodeUpdate"
+          />
+        </div>
+      </template>
+      <div v-if="!isFullPage" class="tsx-playground__handler">
+        <div
+          class="tsx-playground__handler-icon"
+          @click="handleToggleEditor"
+          :title="showEditor ? '收起代码' : '展开代码'"
+        >
+          {{ "<>" }}
+        </div>
       </div>
-    </template>
-    <div v-if="!isFullPage" class="tsx-playground__handler">
-      <div
-        class="tsx-playground__handler-icon"
-        @click="handleToggleEditor"
-        :title="showEditor ? '收起代码' : '展开代码'"
-      >
-        {{ "<>" }}
+      <div class="tsx-playground__preview">
+        <Previewer :code="currentCode" />
       </div>
-    </div>
-    <div class="tsx-playground__preview">
-      <Previewer :code="currentCode" />
-    </div>
+    </ClientOnly>
   </div>
 </template>
 <script lang="ts" setup>
