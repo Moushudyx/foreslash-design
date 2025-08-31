@@ -6,16 +6,23 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
+import { Theme } from "./context/theme";
 export { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
+export { Theme } from "./context/theme";
 export namespace Components {
     interface FsButton {
+        "disabled": boolean;
+        "loading": boolean;
         "size": ButtonSize;
         /**
-          * @default 'primary'
+          * @default 'secondary'
          */
         "type": ButtonType;
     }
     interface FsInput {
+    }
+    interface FsThemeProvider {
+        "theme": Partial<Theme & { lightColor?: Partial<Theme['lightColor']>; darkColor?: Partial<Theme['darkColor']> }>;
     }
 }
 declare global {
@@ -31,24 +38,37 @@ declare global {
         prototype: HTMLFsInputElement;
         new (): HTMLFsInputElement;
     };
+    interface HTMLFsThemeProviderElement extends Components.FsThemeProvider, HTMLStencilElement {
+    }
+    var HTMLFsThemeProviderElement: {
+        prototype: HTMLFsThemeProviderElement;
+        new (): HTMLFsThemeProviderElement;
+    };
     interface HTMLElementTagNameMap {
         "fs-button": HTMLFsButtonElement;
         "fs-input": HTMLFsInputElement;
+        "fs-theme-provider": HTMLFsThemeProviderElement;
     }
 }
 declare namespace LocalJSX {
     interface FsButton {
+        "disabled"?: boolean;
+        "loading"?: boolean;
         "size"?: ButtonSize;
         /**
-          * @default 'primary'
+          * @default 'secondary'
          */
         "type"?: ButtonType;
     }
     interface FsInput {
     }
+    interface FsThemeProvider {
+        "theme"?: Partial<Theme & { lightColor?: Partial<Theme['lightColor']>; darkColor?: Partial<Theme['darkColor']> }>;
+    }
     interface IntrinsicElements {
         "fs-button": FsButton;
         "fs-input": FsInput;
+        "fs-theme-provider": FsThemeProvider;
     }
 }
 export { LocalJSX as JSX };
@@ -57,6 +77,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "fs-button": LocalJSX.FsButton & JSXBase.HTMLAttributes<HTMLFsButtonElement>;
             "fs-input": LocalJSX.FsInput & JSXBase.HTMLAttributes<HTMLFsInputElement>;
+            "fs-theme-provider": LocalJSX.FsThemeProvider & JSXBase.HTMLAttributes<HTMLFsThemeProviderElement>;
         }
     }
 }

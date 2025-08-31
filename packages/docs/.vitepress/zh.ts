@@ -106,6 +106,14 @@ function sidebarComp(): DefaultTheme.SidebarItem[] {
         { text: 'button 按钮', link: 'button' },
       ],
     },
+    {
+      text: '配置组件',
+      base: 'comp/config/',
+      collapsed: false,
+      items: [
+        { text: 'theme-provider 主题配置', link: 'theme-provider' },
+      ],
+    },
   ]
 }
 

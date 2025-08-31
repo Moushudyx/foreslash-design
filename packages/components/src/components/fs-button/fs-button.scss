@@ -1,23 +1,114 @@
 :host {
-  display: inline-block;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   min-width: 36px;
   padding: 8px 16px;
-  // &.fs-button {
-  //   &.fs-button-small {
-  //     min-width: 24px;
-  //     padding: 4px 8px;
-  //   }
-  //   &.fs-button-large {
-  //     min-width: 48px;
-  //     padding: 12px 24px;
-  //   }
-  // }
+  box-sizing: border-box;
+  border-radius: var(--fs-button-radius);
+  user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+  > div {
+    z-index: 1;
+  }
+  > .fs-button__bg {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: var(--fs-button-radius);
+    z-index: 0;
+  }
 }
+// 禁用按钮
+:host(.fs-button-disabled) {
+  cursor: not-allowed;
+  filter: grayscale(75%);
+  opacity: 0.9;
+}
+// 小按钮
 :host(.fs-button-small) {
   min-width: 24px;
   padding: 4px 8px;
 }
+// 大按钮
 :host(.fs-button-large) {
   min-width: 48px;
   padding: 12px 24px;
+}
+// 主要按钮
+:host(.fs-button-primary) {
+  color: var(--fs-color-primary-text);
+  background-color: var(--fs-color-primary);
+}
+:host(.fs-button-primary:not(.fs-button-disabled):hover) {
+  .fs-button__bg {
+    opacity: 0.5;
+    background-color: var(--fs-color-primary-hover);
+  }
+}
+:host(.fs-button-primary:not(.fs-button-disabled):active) {
+  .fs-button__bg {
+    opacity: 0.5;
+    background-color: var(--fs-color-primary-active);
+  }
+}
+// 默认按钮
+:host(.fs-button-default) {
+  color: var(--fs-color-primary-hover);
+  border: 1px solid var(--fs-color-primary);
+  // background-color: var(--fs-color-bg);
+  .fs-button__bg {
+    border: 1px solid var(--fs-color-primary);
+    background-color: var(--fs-color-bg);
+  }
+}
+:host(.fs-button-default:not(.fs-button-disabled):hover) {
+  border: 1px solid var(--fs-color-primary-hover);
+  .fs-button__bg {
+    opacity: 0.075;
+    background-color: var(--fs-color-primary-hover);
+  }
+}
+:host(.fs-button-default:not(.fs-button-disabled):active) {
+  .fs-button__bg {
+    opacity: 0.075;
+    background-color: var(--fs-color-primary-active);
+  }
+}
+// 扁平按钮
+:host(.fs-button-flat) {
+  color: var(--fs-color-primary);
+  background-color: transparent;
+}
+:host(.fs-button-flat:not(.fs-button-disabled):hover) {
+  color: var(--fs-color-primary-hover);
+  .fs-button__bg {
+    opacity: 0.075;
+    background-color: var(--fs-color-primary-hover);
+  }
+}
+:host(.fs-button-flat:not(.fs-button-disabled):active) {
+  // color: var(--fs-color-primary-active);
+  color: var(--fs-color-primary-hover);
+  .fs-button__bg {
+    opacity: 0.075;
+    background-color: var(--fs-color-primary-active);
+  }
+}
+// 链接按钮
+:host(.fs-button-link) {
+  color: var(--fs-color-primary);
+  background-color: transparent;
+}
+:host(.fs-button-link:not(.fs-button-disabled):hover) {
+  color: var(--fs-color-primary-hover);
+}
+:host(.fs-button-link:not(.fs-button-disabled):active) {
+  color: var(--fs-color-primary-active);
 }

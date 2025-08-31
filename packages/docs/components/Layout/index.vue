@@ -1,21 +1,20 @@
 <template>
-  <Layout></Layout>
+  <fs-theme-provider><Layout></Layout></fs-theme-provider>
 </template>
 <script lang="ts" setup>
-import { useData } from "vitepress";
-import { nextTick, provide } from "vue";
-import DefaultTheme from "vitepress/theme";
-import { randomChoice } from "foreslash";
-import { darkAnimations, lightAnimations } from "./animation";
+import { useData } from 'vitepress';
+import { nextTick, provide } from 'vue';
+import DefaultTheme from 'vitepress/theme';
+import { randomChoice } from 'foreslash';
+import { darkAnimations, lightAnimations } from './animation';
 
 const { Layout } = DefaultTheme;
 const { isDark } = useData();
 
 const enableTransitions = () =>
-  "startViewTransition" in document &&
-  window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+  'startViewTransition' in document && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
-provide("toggle-appearance", async ({ clientX: x, clientY: y }: MouseEvent) => {
+provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   if (!enableTransitions()) {
     isDark.value = !isDark.value;
     return;

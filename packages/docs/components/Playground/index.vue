@@ -40,7 +40,7 @@ const props = withDefaults(
     code: string;
     readonly: boolean;
     language: string;
-    isFullPage: boolean;
+    isFullPage?: boolean;
   }>(),
   {
     code: "",
