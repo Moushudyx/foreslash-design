@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Foreslash-UI"
+  name: "Foreslash-Design"
   text: "A Fancy Web Component Lib"
-  tagline: My great project tagline
+  tagline: Web Component
   actions:
     - theme: brand
       text: 快速开始
@@ -15,11 +15,11 @@ hero:
       link: /func/index
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Web Component 规范
+    details: 基于 Web Component 规范实现的组件库, 无需改造直接应用于所有主流框架
+  - title: Context API
+    details: 基于浏览器事件系统与订阅发布模式实现的 Context API, 兼容所有主流浏览器
+  - title: 基于 Stencil
+    details: 基于 Stencil 框架实现, 代码易维护易扩展, 且编译后无额外运行时
 ---
 
