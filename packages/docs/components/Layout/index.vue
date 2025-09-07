@@ -1,5 +1,5 @@
 <template>
-  <fs-theme-provider><Layout></Layout></fs-theme-provider>
+  <fs-theme-provider :theme="{ theme: isDark ? 'dark' : 'light' }"><Layout></Layout></fs-theme-provider>
 </template>
 <script lang="ts" setup>
 import { useData } from 'vitepress';

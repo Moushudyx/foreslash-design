@@ -1,6 +1,8 @@
 import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
-import { getDefaultTheme, handleThemeColor, Theme, ThemeColor } from '../../context/theme';
-import { deepMerge, fastClone } from 'foreslash';
+import { getDefaultTheme, handleThemeColor, Theme, ThemeColor, themeContext } from '../../context/theme';
+import { deepMerge, fastClone, noop } from 'foreslash';
+import { Element } from '@stencil/core';
+import { provide } from '@foreslash-ui/utils';
 
 @Component({
   tag: 'fs-theme-provider',
@@ -11,23 +13,44 @@ export class FsThemeProvider {
   @Prop()
   theme: Partial<Theme & { lightColor?: Partial<Theme['lightColor']>; darkColor?: Partial<Theme['darkColor']> }>;
   @State()
+  private parentTheme: Theme | null = null;
+  @State()
   private themeContext: Theme = getDefaultTheme();
   @State()
-  private currentColorTheme: Required<ThemeColor>;
-  private defaultTheme: Theme = getDefaultTheme();
+  private currentColorTheme: Required<ThemeColor> = {} as any;
+  @Element() el: HTMLElement;
+
   connectedCallback() {
     this.handleThemeChange();
+    this.setCurrentColorTheme();
+    const { updateContext, unmountContext } = provide({
+      content: this,
+      context: themeContext,
+      getContextValue: () => this.themeContext,
+      asConsumeCallback: parentTheme => {
+        this.parentTheme = parentTheme;
+      },
+    });
+    this.updateContext = updateContext;
+    this.unmountContext = unmountContext;
   }
+  disconnectedCallback() {
+    this.unmountContext();
+  }
+  updateContext: (newContextValue?: Theme) => void = noop;
+  unmountContext: () => void = noop;
   @Watch('theme')
+  @Watch('parentTheme')
   handleThemeChange() {
     const tempTheme = fastClone(this.theme) || {};
     if (tempTheme.lightColor && tempTheme.lightColor.primaryColor) {
       tempTheme.lightColor = handleThemeColor(tempTheme.lightColor);
     }
-    if (tempTheme.darkColor && tempTheme.darkColor.primaryColor) {
-      tempTheme.darkColor = handleThemeColor(tempTheme.darkColor);
-    }
-    this.themeContext = deepMerge(this.defaultTheme, tempTheme);
+    this.themeContext = deepMerge(this.parentTheme || getDefaultTheme(), tempTheme);
+    this.setCurrentColorTheme();
+    this.updateContext();
+  }
+  setCurrentColorTheme() {
     this.currentColorTheme = this.themeContext.theme === 'dark' ? this.themeContext.darkColor : this.themeContext.lightColor;
   }
   render() {

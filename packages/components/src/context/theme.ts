@@ -1,3 +1,5 @@
+import { ContextType, createContext } from '@foreslash-ui/utils';
+
 export type ThemeColor = {
   /** 文本颜色 */
   textColor: string;
@@ -88,3 +90,11 @@ export function handleThemeColor(color: ThemeColor): Required<ThemeColor> {
     primaryButtonTextColor: color.primaryButtonTextColor ?? color.textColor,
   };
 }
+/**
+ * 主题上下文
+ */
+export const themeContext = createContext<Theme>('themeContext', getDefaultTheme());
+/**
+ * 主题上下文类型
+ */
+export type ThemeContext = ContextType<typeof themeContext>;

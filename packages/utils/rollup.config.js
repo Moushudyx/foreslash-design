@@ -39,7 +39,7 @@ export default [
         indent: '  ',
       },
     ],
-    plugins: [typescript({ declaration: false, removeComments: true })],
+    plugins: [typescript({ declaration: false, removeComments: true, target: 'es2015' })],
   },
   {
     input: 'src/index.ts',
