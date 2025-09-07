@@ -5,7 +5,7 @@ name: 💼 Deploy Foreslash Design VitePress Document
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "packages/docs/**"
 
