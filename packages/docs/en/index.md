@@ -15,11 +15,11 @@ hero:
       link: /func/index
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Web Component Spec
+    details: Base on Web Component specification, it can be directly applied to all mainstream frameworks
+  - title: Context API
+    details: Base on browser event system and publish-subscribe pattern, it is compatible with all mainstream browsers
+  - title: Base on Stencil
+    details: Base on Stencil framework, code is easy to maintain and extend, and there is no extra runtime after compilation
 ---
 
