@@ -8,11 +8,10 @@
 </template>
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
-import * as monaco from "monaco-editor-core";
+// import * as monaco from "monaco-editor-core";
 import type { editor as monacoEditorType } from "monaco-editor-core";
 import { noop } from "foreslash";
 
-const { editor: monacoEditor, KeyCode, KeyMod } = monaco;
 const props = withDefaults(
   defineProps<{
     code: string;
@@ -27,7 +26,6 @@ const props = withDefaults(
     theme: "dark",
   }
 );
-import { registerTheme } from "./editorUtils";
 
 const emit = defineEmits<{
   (e: "change", value: string): void;
@@ -36,7 +34,7 @@ const emit = defineEmits<{
 const container = ref<HTMLElement>();
 const editor = shallowRef<monacoEditorType.IStandaloneCodeEditor>();
 
-onMounted(() => {
+onMounted(async () => {
   registerEditor();
   // 监听 props 变化
   watch(
@@ -69,6 +67,7 @@ onMounted(() => {
       }
     }
   );
+  const {registerTheme} = await import('./editorUtils');
   const theme = registerTheme();
   watch(
     () => props.theme,
@@ -86,8 +85,9 @@ onBeforeUnmount(() => {
     editor.value.dispose();
   }
 });
-
-function registerEditor() {
+async function registerEditor() {
+  const { editor: monacoEditor, KeyCode, KeyMod } = await import('monaco-editor-core');
+  const {registerTheme} = await import('./editorUtils');
   if (!container.value) {
     return;
   }

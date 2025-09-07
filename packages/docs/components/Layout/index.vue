@@ -12,7 +12,7 @@ const { Layout } = DefaultTheme;
 const { isDark } = useData();
 
 const enableTransitions = () =>
-  'startViewTransition' in document && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  'startViewTransition' in document && window && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   if (!enableTransitions()) {

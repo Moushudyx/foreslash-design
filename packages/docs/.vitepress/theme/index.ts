@@ -1,3 +1,4 @@
+import { inBrowser } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { defineCustomElements } from 'foreslash-ui/loader';
 // import Demo from "../../components/Demo/index.vue";
@@ -19,7 +20,7 @@ export default {
     // });
   },
   async enhanceApp({ app }) {
-    if (window) {
+    if (inBrowser) {
       defineCustomElements(window);
       // app.component("Demo", Demo);
       app.component('Previewer', Previewer);

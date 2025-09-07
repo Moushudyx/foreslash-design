@@ -1,0 +1,60 @@
+# 部署 VitePress 文档到 Github Pages
+
+name: 💼 Deploy Foreslash Design VitePress Document
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/docs/**"
+
+# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 不允许同时进行多个部署，跳过非正在运行、非最新队列的运行队列，且不取消正在运行的工作流
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # 构建
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📋️ Checkout # 切出分支
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 📦 Setup Node # 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: 📦 Setup Pages # 安装 Github Pages
+        uses: actions/configure-pages@v4
+      - name: 📦 Install dependencies # 安装依赖
+        run: pnpm install
+      - name: 🏗️ Build with VitePress # 编译 VP
+        run: pnpm run build # touch ./docs/.vitepress/dist/.nojekyll
+      - name: 🚀 Upload artifact # 上传编译结果
+        uses: actions/upload-pages-artifact@v3
+        if: | # 仅在 Moushudyx 下发布, 防止 fork 后误操作
+          startsWith(github.repository, 'Moushudyx')
+        with:
+          path: ./packages/docs/.vitepress/dist
+  # 部署
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

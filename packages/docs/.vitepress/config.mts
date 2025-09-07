@@ -1,22 +1,22 @@
-import { defineConfig } from "vitepress";
-import markdownItContainer from "markdown-it-container";
-import { zh, zhSearch } from "./zh";
-import { en, enSearch } from "./en";
+import { defineConfig } from 'vitepress';
+import markdownItContainer from 'markdown-it-container';
+import { zh, zhSearch } from './zh';
+import { en, enSearch } from './en';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Foreslash-UI",
-  description: "A Fancy Web Component Lib",
+  title: 'Foreslash-UI',
+  description: 'A Fancy Web Component Lib',
   rewrites: {
-    "zh/:rest*": ":rest*",
+    'zh/:rest*': ':rest*',
   },
-  base: "/foreslash-ui/",
+  base: '/foreslash-design/',
   cleanUrls: true,
 
   lastUpdated: true,
   themeConfig: {
     search: {
-      provider: "local",
+      provider: 'local',
       options: {
         locales: {
           ...zhSearch,
@@ -24,25 +24,20 @@ export default defineConfig({
         },
       },
     },
-    socialLinks: [
-      { icon: "github", link: "https://github.com/Moushudyx/foreslash-ui" },
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/Moushudyx/foreslash-ui' }],
   },
   locales: {
-    root: { label: "中文", ...zh },
-    en: { label: "English", ...en },
+    root: { label: '中文', ...zh },
+    en: { label: 'English', ...en },
   },
   markdown: {
     config: (md) => {
       // 自定义容器
-      md.use(markdownItContainer, "coder", {
+      md.use(markdownItContainer, 'coder', {
         validate(params: string) {
           return params.trim().match(/^coder(.*)$/);
         },
-        render(
-          tokens: { [x: string]: { nesting: number } },
-          idx: string | number
-        ) {
+        render(tokens: { [x: string]: { nesting: number } }, idx: string | number) {
           if (tokens[idx].nesting === 1) {
             // 开始标签
             return `<Coder>\n`;
@@ -52,6 +47,11 @@ export default defineConfig({
           }
         },
       });
+    },
+  },
+  vite: {
+    ssr: {
+      noExternal: ['monaco-editor-core', '@vue/repl'],
     },
   },
 });
