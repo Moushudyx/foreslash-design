@@ -1,3 +1,46 @@
+`fs-theme-provider` 组件利用 Context API 传递状态, 同时使用 CSS 变量来给子组件提供样式配置
+
+基于 Context API 可以实现多层嵌套, 页面上的每个部分都可以根据自己的需求来配置主题
+
+接收一个参数 `theme`, 类型为 `object`, 用于配置主题, 多层嵌套时, 子组件用深度合并来覆盖父组件的配置
+
+`theme` 参数的类型定义如下:
+
+```ts
+type Theme = {
+  theme: 'dark' | 'light';
+  /** 亮色主题颜色 */
+  lightColor: Required<ThemeColor>;
+  /** 暗色主题颜色 */
+  darkColor: Required<ThemeColor>;
+  /** 圆角 */
+  borderRadius: number;
+  /** 按钮圆角 */
+  buttonRadius: number;
+  /** 输入框圆角 */
+  inputRadius: number;
+};
+type ThemeColor = {
+  /** 文本颜色 */
+  textColor: string;
+  /** 次文本颜色 */
+  subTextColor: string;
+  /** 背景颜色 */
+  backgroundColor: string;
+  /** 次背景颜色 */
+  subBackgroundColor: string;
+  /** 主要颜色 */
+  primaryColor: string;
+  /** 主要颜色浅色, 如果不写, 则直接使用 `primaryColor` */
+  primaryColorLight?: string;
+  /** 主要颜色深色, 如果不写, 则直接使用 `primaryColor` */
+  primaryColorDark?: string;
+  /** 主要颜色文本颜色, 如果不写, 则直接使用 `primaryColor` */
+  primaryColorText?: string;
+  /** 主要按钮文本颜色, 如果不写, 则直接使用 `textColor` */
+  primaryButtonTextColor?: string;
+};
+```
 
 <Coder code='export default function () {
   const theme1 = { // 紫罗兰/极客配色
