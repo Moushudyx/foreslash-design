@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="['tsx-playground', isFullPage ? 'tsx-playground-full-page' : '']"
-  >
+  <div :class="['tsx-playground', isFullPage ? 'tsx-playground-full-page' : '']">
     <ClientOnly>
       <template v-if="showEditor || !isFirstShow">
         <div v-show="showEditor" class="tsx-playground__editor">
@@ -15,12 +13,15 @@
         </div>
       </template>
       <div v-if="!isFullPage" class="tsx-playground__handler">
+        <div class="tsx-playground__handler-icon" @click="handleCodeReset" title="重置代码">
+          {{ '重置' }}
+        </div>
         <div
           class="tsx-playground__handler-icon"
           @click="handleToggleEditor"
           :title="showEditor ? '收起代码' : '展开代码'"
         >
-          {{ "<>" }}
+          {{ '<>' }}
         </div>
       </div>
       <div class="tsx-playground__preview">
@@ -30,9 +31,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import Editor from "../Editor/index.vue";
-import Previewer from "../Previewer/index.vue";
+import { onMounted, ref } from 'vue';
+import Editor from '../Editor/index.vue';
+import Previewer from '../Previewer/index.vue';
 
 // 接收初始代码作为 prop
 const props = withDefaults(
@@ -43,18 +44,21 @@ const props = withDefaults(
     isFullPage?: boolean;
   }>(),
   {
-    code: "",
+    code: '',
     readonly: false,
-    language: "tsx",
+    language: 'tsx',
     isFullPage: false,
   }
 );
 const isFirstShow = ref(true); // 第一次展开前用 v-if 隐藏, 而后使用 v-show 显示
 const showEditor = ref(props.isFullPage);
 const currentCode = ref(props.code);
-const theme = ref<"dark" | "light">("light");
+const theme = ref<'dark' | 'light'>('light');
 const handleCodeUpdate = (newCode: string) => {
   currentCode.value = newCode;
+};
+const handleCodeReset = () => {
+  currentCode.value = props.code;
 };
 const handleToggleEditor = () => {
   showEditor.value = !showEditor.value;
@@ -65,14 +69,12 @@ const handleToggleEditor = () => {
 
 onMounted(() => {
   // 监听主题变化
-  theme.value = document.documentElement.classList.contains("dark")
-    ? "dark"
-    : "light";
+  theme.value = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
   const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
-      if (mutation.attributeName === "class") {
-        const isDark = document.documentElement.classList.contains("dark");
-        theme.value = isDark ? "dark" : "light";
+      if (mutation.attributeName === 'class') {
+        const isDark = document.documentElement.classList.contains('dark');
+        theme.value = isDark ? 'dark' : 'light';
         return;
       }
     }
