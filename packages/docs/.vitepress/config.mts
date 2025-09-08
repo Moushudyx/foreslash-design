@@ -54,4 +54,11 @@ export default defineConfig({
       noExternal: ['monaco-editor-core', '@vue/repl'],
     },
   },
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag: string) => tag.includes('fs-'),
+      },
+    },
+  },
 });
