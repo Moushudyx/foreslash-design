@@ -1,44 +1,58 @@
 <template>
-  <div
-    ref="container"
-    class="editor vp-monaco-editor"
-    @keydown.ctrl.s.prevent="emitChangeEvent"
-    @keydown.meta.s.prevent="emitChangeEvent"
-  ></div>
+  <div class="editor-container vp-monaco-editor-container">
+    <div
+      ref="container"
+      class="editor vp-monaco-editor"
+      @keydown.ctrl.s.prevent="emitChangeEvent"
+      @keydown.meta.s.prevent="emitChangeEvent"
+    ></div>
+    <div class="slot-container" style="display: none" ref="slotContainer">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef, VNode, watch } from 'vue';
 // import * as monaco from "monaco-editor-core";
-import type { editor as monacoEditorType } from "monaco-editor-core";
-import { noop } from "foreslash";
+import type { editor as monacoEditorType } from 'monaco-editor-core';
+import { noop } from 'foreslash';
 
 const props = withDefaults(
   defineProps<{
-    code: string;
-    readonly: boolean;
-    language: string;
-    theme: "dark" | "light";
+    code?: string;
+    readonly?: boolean;
+    language?: string;
+    theme?: 'dark' | 'light';
   }>(),
   {
-    code: "",
+    code: '',
     readonly: false,
-    language: "javascript",
-    theme: "dark",
+    language: 'javascript',
+    theme: 'dark',
   }
 );
 
 const emit = defineEmits<{
-  (e: "change", value: string): void;
+  (e: 'change', value: string): void;
 }>();
 
+const slots = defineSlots<{
+  default: () => VNode[];
+}>();
 const container = ref<HTMLElement>();
+const slotContainer = ref<HTMLElement>();
 const editor = shallowRef<monacoEditorType.IStandaloneCodeEditor>();
 
+const inputCode = computed(() => {
+  return props.code || getSlotContainerTextContent();
+});
+
 onMounted(async () => {
+  console.log('slots', slots);
   registerEditor();
   // 监听 props 变化
   watch(
-    () => props.code,
+    () => inputCode.value,
     (newCode) => {
       if (editor.value) {
         if (editor.value.getValue() !== newCode) {
@@ -67,14 +81,14 @@ onMounted(async () => {
       }
     }
   );
-  const {registerTheme} = await import('./editorUtils');
+  const { registerTheme } = await import('./editorUtils');
   const theme = registerTheme();
   watch(
     () => props.theme,
     (newTheme) => {
       if (editor.value) {
         editor.value.updateOptions({
-          theme: newTheme === "light" ? theme.light : theme.dark,
+          theme: newTheme === 'light' ? theme.light : theme.dark,
         });
       }
     }
@@ -87,7 +101,7 @@ onBeforeUnmount(() => {
 });
 async function registerEditor() {
   const { editor: monacoEditor, KeyCode, KeyMod } = await import('monaco-editor-core');
-  const {registerTheme} = await import('./editorUtils');
+  const { registerTheme } = await import('./editorUtils');
   if (!container.value) {
     return;
   }
@@ -95,17 +109,17 @@ async function registerEditor() {
     editor.value.dispose();
   }
   const theme = registerTheme();
-  console.log("Editor", {
-    value: props.code,
+  console.log('Editor', {
+    value: inputCode.value,
     language: props.language,
     readOnly: props.readonly,
-    theme: props.theme === "light" ? theme.light : theme.dark,
+    theme: props.theme === 'light' ? theme.light : theme.dark,
   });
   const editorInstance = monacoEditor.create(container.value, {
-    value: props.code,
+    value: inputCode.value,
     language: props.language,
     readOnly: props.readonly,
-    theme: props.theme === "light" ? theme.light : theme.dark,
+    theme: props.theme === 'light' ? theme.light : theme.dark,
     fontSize: 13,
     tabSize: 2,
     minimap: {
@@ -118,12 +132,23 @@ async function registerEditor() {
   editorInstance.addCommand(KeyMod.CtrlCmd | KeyCode.KeyS, noop); // 禁用保存
   editor.value = editorInstance;
 }
-
 function emitChangeEvent() {
-  emit("change", editor.value?.getValue() || "");
+  emit('change', editor.value?.getValue() || '');
+}
+function getSlotContainerTextContent() {
+  if (!slotContainer.value) return '';
+  const pre = slotContainer.value.querySelector('pre');
+  if (!pre) return '';
+  return (pre.textContent || '').trim();
 }
 </script>
 <style lang="scss">
+.vp-monaco-editor-container {
+  height: 100%;
+  .slot-container {
+    display: none;
+  }
+}
 .vp-monaco-editor {
   height: 100%;
 }

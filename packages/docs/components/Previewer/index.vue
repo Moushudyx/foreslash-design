@@ -84,7 +84,7 @@ const _renderPreview = (code: string) => {
     const transformedCode = transformCode(code);
 
     // 执行代码
-    console.log(transformedCode);
+    // console.log(transformedCode);
     const executeCode = new Function(
       "module",
       "exports",

@@ -42,7 +42,10 @@ type ThemeColor = {
 };
 ```
 
-<Coder code='export default function () {
+
+::: coder
+```tsx
+export default function () {
   const theme1 = { // 紫罗兰/极客配色
     // theme: "dark", // 去掉注释, 它会覆盖从全局 fs-theme-provider 传下来的主题配置
     buttonRadius: 2,
@@ -117,4 +120,6 @@ type ThemeColor = {
       </fs-theme-provider>
     </fs-theme-provider>
   )
-}' />
+}
+```
+:::

@@ -27,20 +27,25 @@
       <div class="tsx-playground__preview">
         <Previewer :code="currentCode" />
       </div>
+      <div class="slot-container" style="display: none" ref="slotContainer">
+        <slot></slot>
+      </div>
+      <!-- <pre>{{ inputCode }}</pre> -->
+      <!-- <pre style="color: red">{{ currentCode }}</pre> -->
     </ClientOnly>
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import Editor from '../Editor/index.vue';
 import Previewer from '../Previewer/index.vue';
 
 // 接收初始代码作为 prop
 const props = withDefaults(
   defineProps<{
-    code: string;
-    readonly: boolean;
-    language: string;
+    code?: string;
+    readonly?: boolean;
+    language?: string;
     isFullPage?: boolean;
   }>(),
   {
@@ -52,13 +57,17 @@ const props = withDefaults(
 );
 const isFirstShow = ref(true); // 第一次展开前用 v-if 隐藏, 而后使用 v-show 显示
 const showEditor = ref(props.isFullPage);
-const currentCode = ref(props.code);
+const slotContainer = ref<HTMLElement>();
+const inputCode = computed(() => {
+  return props.code || getSlotContainerTextContent();
+});
 const theme = ref<'dark' | 'light'>('light');
+const currentCode = ref(inputCode.value);
 const handleCodeUpdate = (newCode: string) => {
   currentCode.value = newCode;
 };
 const handleCodeReset = () => {
-  currentCode.value = props.code;
+  currentCode.value = inputCode.value;
 };
 const handleToggleEditor = () => {
   showEditor.value = !showEditor.value;
@@ -82,7 +91,16 @@ onMounted(() => {
   observer.observe(document.documentElement, {
     attributes: true,
   });
+  nextTick(() => {
+    handleCodeReset();
+  });
 });
+function getSlotContainerTextContent() {
+  if (!slotContainer.value) return '';
+  const pre = slotContainer.value.querySelector('pre');
+  if (!pre) return '';
+  return (pre.textContent || '').trim();
+}
 </script>
 <style lang="scss">
 .tsx-playground {
@@ -156,6 +174,9 @@ onMounted(() => {
       min-height: 256px;
       padding: 4px 8px;
     }
+  }
+  .slot-container {
+    display: none;
   }
 }
 </style>
