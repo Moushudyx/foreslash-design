@@ -13,16 +13,10 @@
         </div>
       </template>
       <div v-if="!isFullPage" class="tsx-playground__handler">
-        <div class="tsx-playground__handler-icon" @click="handleCodeReset" title="重置代码">
-          {{ '重置' }}
-        </div>
-        <div
-          class="tsx-playground__handler-icon"
-          @click="handleToggleEditor"
-          :title="showEditor ? '收起代码' : '展开代码'"
-        >
+        <fs-button size="small" type="flat" @click="handleCodeReset" title="重置代码"> {{ '重置' }} </fs-button>
+        <fs-button size="small" type="flat" @click="handleToggleEditor" :title="showEditor ? '收起代码' : '展开代码'">
           {{ '<>' }}
-        </div>
+        </fs-button>
       </div>
       <div class="tsx-playground__preview">
         <Previewer :code="currentCode" />

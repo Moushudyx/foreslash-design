@@ -8,7 +8,7 @@ export default function () {
   return (
     <>
       <style>
-        {`.fs-button + fs-button { margin-left: 8px }`}
+        {`.previewer .fs-button + fs-button { margin-left: 8px }`}
       </style>
       <p>
         <fs-button type="primary">主要按钮</fs-button>
@@ -41,7 +41,7 @@ export default function () {
   return (
     <>
       <style>
-        {`.fs-button + fs-button { margin-left: 8px }`}
+        {`.previewer .fs-button + fs-button { margin-left: 8px }`}
       </style>
       <p>
         <fs-button size="small" type="primary">小型按钮</fs-button>
