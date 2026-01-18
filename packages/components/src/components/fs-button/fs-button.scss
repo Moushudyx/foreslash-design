@@ -31,6 +31,7 @@
 }
 // 焦点可见态
 :host(:focus-visible) {
+  // TODO 查了下 color-mix 是 2023 年才得到普遍支持的功能
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--fs-color-primary) 25%, transparent);
 }
 // 禁用按钮
