@@ -10,6 +10,8 @@
   user-select: none;
   cursor: pointer;
   overflow: hidden;
+  outline: none;
+  vertical-align: baseline;
   > div {
     z-index: 1;
   }
@@ -24,6 +26,10 @@
     border-radius: var(--fs-button-radius);
     z-index: 0;
   }
+}
+// 焦点可见态
+:host(:focus-visible) {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--fs-color-primary) 25%, transparent);
 }
 // 禁用按钮
 :host(.fs-button-disabled) {
@@ -64,7 +70,6 @@
   border: 1px solid var(--fs-color-primary);
   // background-color: var(--fs-color-bg);
   .fs-button__bg {
-    border: 1px solid var(--fs-color-primary);
     background-color: var(--fs-color-bg);
   }
 }
@@ -111,4 +116,40 @@
 }
 :host(.fs-button-link:not(.fs-button-disabled):active) {
   color: var(--fs-color-primary-active);
+}
+
+// 图标与加载态
+:host {
+  .fs-button__icon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .fs-button__spinner {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    box-sizing: border-box;
+    animation: fs-spin 0.8s linear infinite;
+  }
+}
+:host(.fs-button-with-icon) {
+  .fs-button__icon {
+    display: inline-flex;
+    margin-right: 8px;
+  }
+}
+// 加载态保持 spinner 占位
+:host(.fs-button-loading) {
+  .fs-button__icon {
+    display: inline-flex;
+  }
+}
+
+@keyframes fs-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

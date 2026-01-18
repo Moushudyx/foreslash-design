@@ -11,8 +11,18 @@
 | ---------- | ---------- | ----------- | ----------------------------------------------------------- | ------------- |
 | `disabled` | `disabled` |             | `boolean`                                                   | `undefined`   |
 | `loading`  | `loading`  |             | `boolean`                                                   | `undefined`   |
-| `size`     | `size`     |             | `"default" \| "large" \| "middle" \| "small"`               | `undefined`   |
+| `size`     | `size`     |             | `"default" \| "large" \| "middle" \| "small"`               | `'middle'`    |
 | `type`     | `type`     |             | `"default" \| "flat" \| "link" \| "primary" \| "secondary"` | `'secondary'` |
+
+
+## Shadow Parts
+
+| Part        | Description |
+| ----------- | ----------- |
+| `"bg"`      |             |
+| `"content"` |             |
+| `"icon"`    |             |
+| `"spinner"` |             |
 
 
 ----------------------------------------------

@@ -66,3 +66,33 @@ export default function () {
 }
 ```
 :::
+
+## 图标按钮
+
+::: coder
+```tsx
+export default function () {
+  return (
+    <>
+      <style>
+        {`.previewer .fs-button + fs-button { margin-left: 8px }`}
+      </style>
+      <p>
+        <fs-button type="primary">
+          <span slot="icon">&#9733;</span>
+          图标按钮
+        </fs-button>
+        <fs-button type="primary" loading>
+          <span slot="icon">&#9733;</span>
+          加载中
+        </fs-button>
+        <fs-button type="link">
+          <span slot="icon">&#10140;</span>
+          链接按钮
+        </fs-button>
+      </p>
+    </>
+  )
+}
+```
+:::

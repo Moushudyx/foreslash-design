@@ -13,6 +13,9 @@ export namespace Components {
     interface FsButton {
         "disabled": boolean;
         "loading": boolean;
+        /**
+          * @default 'middle'
+         */
         "size": ButtonSize;
         /**
           * @default 'secondary'
@@ -54,6 +57,9 @@ declare namespace LocalJSX {
     interface FsButton {
         "disabled"?: boolean;
         "loading"?: boolean;
+        /**
+          * @default 'middle'
+         */
         "size"?: ButtonSize;
         /**
           * @default 'secondary'
