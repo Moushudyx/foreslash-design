@@ -80,7 +80,7 @@ export class FsButton {
         <div class="fs-button__bg" part="bg"></div>
         <div class="fs-button__icon" part="icon">
           {showSpinner ? (
-            <span class="fs-button__spinner" part="spinner"></span>
+            <span class="fs-button__spinner" part="spinner">&nbsp;</span>
           ) : (
             <slot
               name="icon"

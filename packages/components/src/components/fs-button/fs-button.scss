@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-width: 36px;
-  padding: 8px 16px;
+  padding: 12px 16px;
   box-sizing: border-box;
   border-radius: var(--fs-button-radius);
   user-select: none;
@@ -12,7 +12,9 @@
   overflow: hidden;
   outline: none;
   vertical-align: baseline;
+  box-sizing: border-box;
   > div {
+    line-height: 1;
     z-index: 1;
   }
   > .fs-button__bg {
@@ -40,12 +42,12 @@
 // 小按钮
 :host(.fs-button-small) {
   min-width: 24px;
-  padding: 4px 8px;
+  padding: 6px 8px;
 }
 // 大按钮
 :host(.fs-button-large) {
   min-width: 48px;
-  padding: 12px 24px;
+  padding: 16px 24px;
 }
 // 主要按钮
 :host(.fs-button-primary) {
@@ -122,12 +124,13 @@
 :host {
   .fs-button__icon {
     display: none;
+    height: 1em;
     align-items: center;
     justify-content: center;
   }
   .fs-button__spinner {
-    width: 14px;
-    height: 14px;
+    width: calc(1em + 4px);
+    // height: 1em;
     border-radius: 50%;
     border: 2px solid currentColor;
     border-right-color: transparent;
