@@ -1,3 +1,4 @@
+import { isNil } from 'foreslash'
 import {
   _createContext,
   Context,
@@ -31,27 +32,29 @@ export class ContextSubscriptionCenter<T extends UnknownContext> {
   constructor(context: T, defaultValue: ContextType<T>) {
     this.context = context;
     this.defaultValue = defaultValue;
-    // 对于一开始没有父组件的情况, 在 body 上监听 context-request 事件, 防止子组件没有绑定任何父组件
-    document.body.addEventListener('context-request', (event) => {
-      if (event.context === this.context) {
-        if (event.subscribe) this.handleContextRequestEvent(event as ContextRequestEvent<T>, document.body);
-        // 中间插入一个新的父组件的情况
-        if (event.provider && !event.resubscribe) {
-          this.handleContextProviderUnmountEvent(document.body);
+    if (!isNil(document) && document.body) {
+      // 对于一开始没有父组件的情况, 在 body 上监听 context-request 事件, 防止子组件没有绑定任何父组件
+      document.body.addEventListener('context-request', (event) => {
+        if (event.context === this.context) {
+          if (event.subscribe) this.handleContextRequestEvent(event as ContextRequestEvent<T>, document.body);
+          // 中间插入一个新的父组件的情况
+          if (event.provider && !event.resubscribe) {
+            this.handleContextProviderUnmountEvent(document.body);
+          }
+          (event as ContextRequestEvent<typeof context>).callback(defaultValue, () => {
+            this.handleContextUnsubscribeEvent(
+              (event as ContextRequestEvent<typeof context>).targetElement,
+              document.body
+            );
+          });
         }
-        (event as ContextRequestEvent<typeof context>).callback(defaultValue, () => {
-          this.handleContextUnsubscribeEvent(
-            (event as ContextRequestEvent<typeof context>).targetElement,
-            document.body
-          );
-        });
-      }
-    });
-    document.body.addEventListener('context-unsubscribe', (event) => {
-      if (event.context === this.context) {
-        this.handleContextUnsubscribeEvent((event as ContextUnsubscribeEvent<T>).targetElement, document.body);
-      }
-    });
+      });
+      document.body.addEventListener('context-unsubscribe', (event) => {
+        if (event.context === this.context) {
+          this.handleContextUnsubscribeEvent((event as ContextUnsubscribeEvent<T>).targetElement, document.body);
+        }
+      });
+    }
     // provide({ content: { el: document.body }, context: this.context, getContextValue: () => this.defaultValue });
   }
   /** 记录父组件 - 子组件的对应关系 */
