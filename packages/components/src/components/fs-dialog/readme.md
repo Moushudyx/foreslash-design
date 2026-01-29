@@ -42,6 +42,19 @@ Type: `Promise<void>`
 
 
 
+## Dependencies
+
+### Depends on
+
+- [fs-button](../fs-button)
+
+### Graph
+```mermaid
+graph TD;
+  fs-dialog --> fs-button
+  style fs-dialog fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

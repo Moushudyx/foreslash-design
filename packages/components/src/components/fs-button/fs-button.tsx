@@ -13,6 +13,8 @@ export type ButtonIconPosition = 'left' | 'right';
 })
 export class FsButton {
   @Prop()
+  class?: string
+  @Prop()
   type: ButtonType = 'secondary';
   @Prop()
   size: ButtonSize = 'middle';
@@ -63,6 +65,7 @@ export class FsButton {
     return (
       <Host
         class={{
+          [this.class || '']: true,
           'fs-button': true,
           'fs-button-primary': this.type === 'primary',
           'fs-button-default': ['secondary', '', 'default', undefined, null].includes(this.type),
