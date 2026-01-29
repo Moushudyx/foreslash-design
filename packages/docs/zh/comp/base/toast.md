@@ -6,6 +6,8 @@
 
 ::: coder
 ```tsx
+import { $msg } from 'foreslash-ui/utils';
+
 export default function () {
   const showToast = () => {
     // 字符串简写

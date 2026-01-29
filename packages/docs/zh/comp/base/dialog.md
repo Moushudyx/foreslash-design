@@ -6,21 +6,21 @@
 
 ::: coder
 ```tsx
+import { $dialog } from 'foreslash-ui/utils';
+
 export default function () {
   const showDialog = async () => {
-    $dialog.show({
-      title: '提示',
-      content: '这是一段提示信息',
-      onConfirm: () => console.log('confirm'),
-      onCancel: () => console.log('cancel'),
-    })
-
     const ok = await $dialog.confirm({
       title: '确认',
       content: '是否继续？',
     })
 
-    if (ok) console.log('用户确认')
+    $dialog.show({
+      title: '提示',
+      content: ok ? '这是一段提示信息' : '操作已取消',
+      onConfirm: () => console.log('confirm'),
+      onCancel: () => console.log('cancel'),
+    })
   }
 
   return (
@@ -34,10 +34,14 @@ export default function () {
 
 ::: coder
 ```tsx
+import { reactive } from 'vue'
+
 export default function () {
-  return (
+  const state = reactive({ open: false })
+  return <>
+    <fs-button onClick={() => { state.open = true }}>打开弹框</fs-button>
     <fs-dialog
-      open
+      open={state.open}
       title="标题"
       content="这是弹窗内容"
       confirmText="确定"
@@ -45,8 +49,9 @@ export default function () {
       showCancel
       maskClosable
       closeOnEsc
+      closable
     />
-  )
+  </>
 }
 ```
 :::

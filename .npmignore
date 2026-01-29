@@ -6,6 +6,10 @@ log/
 script/
 docs/
 coverage/
+.stencil/
+.turbo/
+cache/
+src/
 
 # IDE 配置项
 .vscode/

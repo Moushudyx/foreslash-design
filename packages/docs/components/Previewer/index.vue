@@ -15,7 +15,9 @@ import {
   onMounted,
   onBeforeUnmount,
   watch,
+  reactive,
 } from "vue";
+import { $dialog, $msg, format } from 'foreslash-ui/utils';
 import { transform } from "@babel/standalone";
 import * as foreslash from "foreslash";
 // import * as babelPluginJsx from "@vue/babel-plugin-jsx";
@@ -58,7 +60,9 @@ const _renderPreview = (code: string) => {
     // 注入 Vue 的 h 函数和必要的 API
     const availableModules = {
       foreslash: foreslash,
-      Vue: { h, createApp, defineComponent, Fragment },
+      'foreslash-ui/utils': { $msg, format, $dialog },
+      vue: { reactive, h, createApp, defineComponent, Fragment },
+      Vue: { reactive, h, createApp, defineComponent, Fragment },
     };
     const require = (id: string) => {
       if (availableModules[id]) {
