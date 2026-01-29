@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Method, Prop, State, Watch, h } from '@stencil/core';
 
 export type ToastType = 'info' | 'success' | 'warning' | 'error' | 'default';
 
@@ -45,6 +45,9 @@ export class FsToast {
   toastClose: EventEmitter<{ reason: 'timeout' | 'manual' }>;
 
   private timer?: number;
+  private closeTimer?: number;
+  private readonly motionDuration = 200;
+  @State() private closing = false;
 
   componentDidLoad() {
     if (this.open) this.startTimer();
@@ -52,6 +55,7 @@ export class FsToast {
 
   disconnectedCallback() {
     this.clearTimer();
+    this.clearCloseTimer();
   }
 
   @Watch('open')
@@ -85,13 +89,32 @@ export class FsToast {
     }
   }
 
+  private clearCloseTimer() {
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer);
+      this.closeTimer = undefined;
+    }
+  }
+
   /**
    * 关闭 toast 并派发事件
    */
   private close(reason: 'timeout' | 'manual') {
-    if (!this.open) return;
+    if (this.closing || !this.open) return;
+    this.closing = true;
+    this.clearTimer();
     this.open = false;
-    this.toastClose.emit({ reason });
+    if (typeof window === 'undefined') {
+      this.toastClose.emit({ reason });
+      this.closing = false;
+      return;
+    }
+    this.clearCloseTimer();
+    this.closeTimer = window.setTimeout(() => {
+      this.toastClose.emit({ reason });
+      this.closing = false;
+      this.closeTimer = undefined;
+    }, this.motionDuration);
   }
 
   /**
@@ -117,6 +140,7 @@ export class FsToast {
           'fs-toast--warning': this.type === 'warning',
           'fs-toast--error': this.type === 'error',
           'fs-toast--default': this.type === 'default',
+          'fs-toast--closing': this.closing,
         }}
         role="status"
         aria-live="polite"

@@ -25,7 +25,7 @@
 | Event               | Description  | Type                                                                            |
 | ------------------- | ------------ | ------------------------------------------------------------------------------- |
 | `fs-dialog-cancel`  | 取消事件         | `CustomEvent<void>`                                                             |
-| `fs-dialog-close`   | 关闭事件（包含关闭原因） | `CustomEvent<{ reason: "confirm" \| "cancel" \| "close" \| "mask" \| "esc"; }>` |
+| `fs-dialog-close`   | 关闭事件（包含关闭原因） | `CustomEvent<{ reason: "mask" \| "close" \| "confirm" \| "cancel" \| "esc"; }>` |
 | `fs-dialog-confirm` | 确认事件         | `CustomEvent<void>`                                                             |
 
 

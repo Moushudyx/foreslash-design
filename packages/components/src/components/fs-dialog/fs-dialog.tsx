@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Host, Listen, Method, Prop, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h, Element } from '@stencil/core';
 
 @Component({
   tag: 'fs-dialog',
@@ -6,6 +6,7 @@ import { Component, Event, EventEmitter, Host, Listen, Method, Prop, h } from '@
   shadow: true,
 })
 export class FsDialog {
+  @Element() el: HTMLElement;
   /**
    * 是否显示
    */
@@ -78,13 +79,42 @@ export class FsDialog {
   @Event({ eventName: 'fs-dialog-close' })
   dialogClose: EventEmitter<{ reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' }>;
 
+  private closeTimer?: number;
+  private readonly motionDuration = 200;
+  @State() private closing = false;
+  private lastActiveEl?: HTMLElement | null;
+  private panelEl?: HTMLDivElement;
+
+  disconnectedCallback() {
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer);
+      this.closeTimer = undefined;
+    }
+  }
+
   /**
    * 统一关闭入口
    */
   private close(reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc') {
-    if (!this.open) return;
+    if (this.closing || !this.open) return;
+    this.closing = true;
     this.open = false;
-    this.dialogClose.emit({ reason });
+    if (typeof window === 'undefined') {
+      this.dialogClose.emit({ reason });
+      this.restoreFocus();
+      this.closing = false;
+      return;
+    }
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer);
+      this.closeTimer = undefined;
+    }
+    this.closeTimer = window.setTimeout(() => {
+      this.dialogClose.emit({ reason });
+      this.restoreFocus();
+      this.closing = false;
+      this.closeTimer = undefined;
+    }, this.motionDuration);
   }
 
   /**
@@ -118,8 +148,33 @@ export class FsDialog {
 
   @Listen('keydown', { target: 'window' })
   handleKeyDown(ev: KeyboardEvent) {
-    if (!this.open || !this.closeOnEsc) return;
+    if (!this.open || this.closing || !this.closeOnEsc) return;
     if (ev.key === 'Escape') this.close('esc');
+  }
+
+  @Watch('open')
+  handleOpenChange(next: boolean) {
+    if (next) {
+      this.lastActiveEl = (typeof document !== 'undefined' ? (document.activeElement as HTMLElement) : null) || null;
+      requestAnimationFrame(() => this.focusFirst());
+    }
+  }
+
+  private focusFirst() {
+    const root = this.el?.shadowRoot;
+    if (!root) return;
+    const target = root.querySelector<HTMLElement>(
+      '.fs-dialog__close, .fs-dialog__btn--confirm, .fs-dialog__btn--cancel, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (target) target.focus();
+    else this.panelEl?.focus();
+  }
+
+  private restoreFocus() {
+    if (this.lastActiveEl && typeof this.lastActiveEl.focus === 'function') {
+      this.lastActiveEl.focus();
+    }
+    this.lastActiveEl = null;
   }
 
   /**
@@ -132,18 +187,18 @@ export class FsDialog {
 
   render() {
     return (
-      <Host class={{ 'fs-dialog': true }} aria-hidden={this.open ? 'false' : 'true'}>
+      <Host class={{ 'fs-dialog': true, 'fs-dialog--closing': this.closing }} aria-hidden={this.open ? 'false' : 'true'}>
         <div class="fs-dialog__mask" onClick={this.handleMaskClick}></div>
-        <div class="fs-dialog__panel" role="dialog" aria-modal="true">
+        <div class="fs-dialog__panel" role="dialog" aria-modal="true" tabIndex={-1} ref={el => (this.panelEl = el as HTMLDivElement)}>
           <div class="fs-dialog__header">
             <div class="fs-dialog__title">
               {/* TODO 这里也加个插槽 */}
               {this.title}
             </div>
             {this.closable ? (
-              <button class="fs-dialog__close" type="button" onClick={this.handleCloseClick} aria-label="关闭">
+              <fs-button class="fs-dialog__close" type="flat" onClick={this.handleCloseClick} aria-label="关闭">
                 ×
-              </button>
+              </fs-button>
             ) : null}
           </div>
           <div class="fs-dialog__body">
@@ -152,13 +207,13 @@ export class FsDialog {
           <div class="fs-dialog__footer">
             {/* TODO 这里也加个插槽 */}
             {this.showCancel ? (
-              <button class="fs-dialog__btn fs-dialog__btn--cancel" type="button" onClick={this.handleCancel}>
+              <fs-button class="fs-dialog__btn fs-dialog__btn--cancel" onClick={this.handleCancel}>
                 {this.cancelText}
-              </button>
+              </fs-button>
             ) : null}
-            <button class="fs-dialog__btn fs-dialog__btn--confirm" type="button" onClick={this.handleConfirm}>
+            <fs-button class="fs-dialog__btn fs-dialog__btn--confirm" type="primary" onClick={this.handleConfirm}>
               {this.confirmText}
-            </button>
+            </fs-button>
           </div>
         </div>
       </Host>
