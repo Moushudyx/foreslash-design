@@ -7,8 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
 import { Theme } from "./context/theme";
+import { ToastType } from "./components/fs-toast/fs-toast";
 export { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
 export { Theme } from "./context/theme";
+export { ToastType } from "./components/fs-toast/fs-toast";
 export namespace Components {
     interface FsButton {
         "disabled": boolean;
@@ -22,11 +24,101 @@ export namespace Components {
          */
         "type": ButtonType;
     }
+    interface FsDialog {
+        /**
+          * 取消按钮文字
+          * @default '取消'
+         */
+        "cancelText": string;
+        /**
+          * 是否显示右上角关闭按钮
+          * @default true
+         */
+        "closable": boolean;
+        /**
+          * ESC 是否可关闭
+          * @default true
+         */
+        "closeOnEsc": boolean;
+        /**
+          * 确认按钮文字
+          * @default '确认'
+         */
+        "confirmText": string;
+        /**
+          * 内容（默认渲染为 slot 的回退内容）
+          * @default ''
+         */
+        "content": string;
+        /**
+          * 命令式关闭
+         */
+        "dismiss": () => Promise<void>;
+        /**
+          * 点击遮罩是否关闭
+          * @default true
+         */
+        "maskClosable": boolean;
+        /**
+          * 是否显示
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * 是否显示取消按钮
+          * @default true
+         */
+        "showCancel": boolean;
+        /**
+          * 标题
+          * @default ''
+         */
+        "title": string;
+    }
     interface FsInput {
     }
     interface FsThemeProvider {
         "theme": Partial<Theme & { lightColor?: Partial<Theme['lightColor']>; darkColor?: Partial<Theme['darkColor']> }>;
     }
+    interface FsToast {
+        /**
+          * 是否展示关闭按钮
+          * @default false
+         */
+        "closable": boolean;
+        /**
+          * 命令式关闭
+         */
+        "dismiss": () => Promise<void>;
+        /**
+          * 自动关闭时间（毫秒），0 表示不自动关闭
+          * @default 2500
+         */
+        "duration": number;
+        /**
+          * 提示内容（默认渲染为 slot 的回退内容）
+          * @default ''
+         */
+        "message": string;
+        /**
+          * 是否显示
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * 提示类型
+          * @default 'info'
+         */
+        "type": ToastType;
+    }
+}
+export interface FsDialogCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFsDialogElement;
+}
+export interface FsToastCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFsToastElement;
 }
 declare global {
     interface HTMLFsButtonElement extends Components.FsButton, HTMLStencilElement {
@@ -34,6 +126,25 @@ declare global {
     var HTMLFsButtonElement: {
         prototype: HTMLFsButtonElement;
         new (): HTMLFsButtonElement;
+    };
+    interface HTMLFsDialogElementEventMap {
+        "fs-dialog-confirm": void;
+        "fs-dialog-cancel": void;
+        "fs-dialog-close": { reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' };
+    }
+    interface HTMLFsDialogElement extends Components.FsDialog, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFsDialogElementEventMap>(type: K, listener: (this: HTMLFsDialogElement, ev: FsDialogCustomEvent<HTMLFsDialogElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFsDialogElementEventMap>(type: K, listener: (this: HTMLFsDialogElement, ev: FsDialogCustomEvent<HTMLFsDialogElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFsDialogElement: {
+        prototype: HTMLFsDialogElement;
+        new (): HTMLFsDialogElement;
     };
     interface HTMLFsInputElement extends Components.FsInput, HTMLStencilElement {
     }
@@ -47,10 +158,29 @@ declare global {
         prototype: HTMLFsThemeProviderElement;
         new (): HTMLFsThemeProviderElement;
     };
+    interface HTMLFsToastElementEventMap {
+        "fs-toast-close": { reason: 'timeout' | 'manual' };
+    }
+    interface HTMLFsToastElement extends Components.FsToast, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFsToastElementEventMap>(type: K, listener: (this: HTMLFsToastElement, ev: FsToastCustomEvent<HTMLFsToastElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFsToastElementEventMap>(type: K, listener: (this: HTMLFsToastElement, ev: FsToastCustomEvent<HTMLFsToastElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFsToastElement: {
+        prototype: HTMLFsToastElement;
+        new (): HTMLFsToastElement;
+    };
     interface HTMLElementTagNameMap {
         "fs-button": HTMLFsButtonElement;
+        "fs-dialog": HTMLFsDialogElement;
         "fs-input": HTMLFsInputElement;
         "fs-theme-provider": HTMLFsThemeProviderElement;
+        "fs-toast": HTMLFsToastElement;
     }
 }
 declare namespace LocalJSX {
@@ -66,15 +196,107 @@ declare namespace LocalJSX {
          */
         "type"?: ButtonType;
     }
+    interface FsDialog {
+        /**
+          * 取消按钮文字
+          * @default '取消'
+         */
+        "cancelText"?: string;
+        /**
+          * 是否显示右上角关闭按钮
+          * @default true
+         */
+        "closable"?: boolean;
+        /**
+          * ESC 是否可关闭
+          * @default true
+         */
+        "closeOnEsc"?: boolean;
+        /**
+          * 确认按钮文字
+          * @default '确认'
+         */
+        "confirmText"?: string;
+        /**
+          * 内容（默认渲染为 slot 的回退内容）
+          * @default ''
+         */
+        "content"?: string;
+        /**
+          * 点击遮罩是否关闭
+          * @default true
+         */
+        "maskClosable"?: boolean;
+        /**
+          * 取消事件
+         */
+        "onFs-dialog-cancel"?: (event: FsDialogCustomEvent<void>) => void;
+        /**
+          * 关闭事件（包含关闭原因）
+         */
+        "onFs-dialog-close"?: (event: FsDialogCustomEvent<{ reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' }>) => void;
+        /**
+          * 确认事件
+         */
+        "onFs-dialog-confirm"?: (event: FsDialogCustomEvent<void>) => void;
+        /**
+          * 是否显示
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * 是否显示取消按钮
+          * @default true
+         */
+        "showCancel"?: boolean;
+        /**
+          * 标题
+          * @default ''
+         */
+        "title"?: string;
+    }
     interface FsInput {
     }
     interface FsThemeProvider {
         "theme"?: Partial<Theme & { lightColor?: Partial<Theme['lightColor']>; darkColor?: Partial<Theme['darkColor']> }>;
     }
+    interface FsToast {
+        /**
+          * 是否展示关闭按钮
+          * @default false
+         */
+        "closable"?: boolean;
+        /**
+          * 自动关闭时间（毫秒），0 表示不自动关闭
+          * @default 2500
+         */
+        "duration"?: number;
+        /**
+          * 提示内容（默认渲染为 slot 的回退内容）
+          * @default ''
+         */
+        "message"?: string;
+        /**
+          * 关闭事件（包含关闭原因）
+         */
+        "onFs-toast-close"?: (event: FsToastCustomEvent<{ reason: 'timeout' | 'manual' }>) => void;
+        /**
+          * 是否显示
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * 提示类型
+          * @default 'info'
+         */
+        "type"?: ToastType;
+    }
     interface IntrinsicElements {
         "fs-button": FsButton;
+        "fs-dialog": FsDialog;
         "fs-input": FsInput;
         "fs-theme-provider": FsThemeProvider;
+        "fs-toast": FsToast;
     }
 }
 export { LocalJSX as JSX };
@@ -82,8 +304,10 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fs-button": LocalJSX.FsButton & JSXBase.HTMLAttributes<HTMLFsButtonElement>;
+            "fs-dialog": LocalJSX.FsDialog & JSXBase.HTMLAttributes<HTMLFsDialogElement>;
             "fs-input": LocalJSX.FsInput & JSXBase.HTMLAttributes<HTMLFsInputElement>;
             "fs-theme-provider": LocalJSX.FsThemeProvider & JSXBase.HTMLAttributes<HTMLFsThemeProviderElement>;
+            "fs-toast": LocalJSX.FsToast & JSXBase.HTMLAttributes<HTMLFsToastElement>;
         }
     }
 }

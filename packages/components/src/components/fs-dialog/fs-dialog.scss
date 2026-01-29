@@ -1,0 +1,79 @@
+:host {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  pointer-events: auto;
+}
+
+:host([open]) {
+  display: flex;
+}
+
+.fs-dialog__mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.fs-dialog__panel {
+  position: relative;
+  min-width: 320px;
+  max-width: 90vw;
+  background: var(--fs-color-bg, #fff);
+  color: var(--fs-color-text, #1f2a37);
+  border-radius: var(--fs-radius, 8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  padding: 16px;
+  z-index: 1;
+}
+
+.fs-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.fs-dialog__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.fs-dialog__close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.fs-dialog__body {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.fs-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.fs-dialog__btn {
+  border-radius: var(--fs-button-radius, 6px);
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  cursor: pointer;
+}
+
+.fs-dialog__btn--confirm {
+  background: var(--fs-color-primary, #0077e1);
+  color: var(--fs-color-primary-text, #fff);
+  border-color: transparent;
+}

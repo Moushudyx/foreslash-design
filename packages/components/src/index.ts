@@ -9,4 +9,8 @@
  */
 
 export { format } from './utils/utils';
+export { $msg } from './utils/message';
+export { $dialog } from './utils/dialog';
+export type { ToastOptions } from './utils/message';
+export type { DialogOptions } from './utils/dialog';
 export type * from './components';

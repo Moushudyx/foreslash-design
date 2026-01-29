@@ -104,6 +104,8 @@ function sidebarComp(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         { text: 'button 按钮', link: 'button' },
+        { text: 'toast 消息提示', link: 'toast' },
+        { text: 'dialog 弹窗', link: 'dialog' },
       ],
     },
     {
