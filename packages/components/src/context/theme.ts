@@ -103,3 +103,24 @@ export const themeContext = createContext<Theme>('themeContext', getDefaultTheme
  * 主题上下文类型
  */
 export type ThemeContext = ContextType<typeof themeContext>;
+
+/**
+ * 生成主题 CSS 变量
+ */
+export function generateCssVars(theme: Theme): Record<string, string> {
+  const currentColorTheme = theme.theme === 'dark' ? theme.darkColor : theme.lightColor;
+  return {
+    '--fs-color-primary': currentColorTheme.primaryColor,
+    '--fs-color-primary-text': currentColorTheme.primaryButtonTextColor,
+    '--fs-color-primary-hover': currentColorTheme.primaryColorLight,
+    '--fs-color-primary-active': currentColorTheme.primaryColorDark,
+    '--fs-color-bg': currentColorTheme.backgroundColor,
+    '--fs-color-bg-sub': currentColorTheme.subBackgroundColor,
+    '--fs-color-bg-extra': currentColorTheme.extraBackgroundColor,
+    '--fs-color-text': currentColorTheme.textColor,
+    '--fs-color-text-sub': currentColorTheme.subTextColor,
+    '--fs-radius': theme.borderRadius + 'px',
+    '--fs-button-radius': theme.buttonRadius + 'px',
+    '--fs-input-radius': theme.inputRadius + 'px',
+  };
+}

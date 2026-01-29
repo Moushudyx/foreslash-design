@@ -1,5 +1,5 @@
 import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
-import { getDefaultTheme, handleThemeColor, Theme, ThemeColor, themeContext } from '../../context/theme';
+import { generateCssVars, getDefaultTheme, handleThemeColor, Theme, themeContext } from '../../context/theme';
 import { deepMerge, fastClone, noop } from 'foreslash';
 import { Element } from '@stencil/core';
 import { provide } from '@foreslash-ui/utils';
@@ -16,13 +16,10 @@ export class FsThemeProvider {
   private parentTheme: Theme | null = null;
   @State()
   private themeContext: Theme = getDefaultTheme();
-  @State()
-  private currentColorTheme: Required<ThemeColor> = {} as any;
   @Element() el: HTMLElement;
 
   connectedCallback() {
     this.handleThemeChange();
-    this.setCurrentColorTheme();
     const { updateContext, unmountContext } = provide({
       content: this,
       context: themeContext,
@@ -47,11 +44,7 @@ export class FsThemeProvider {
       tempTheme.lightColor = handleThemeColor(tempTheme.lightColor);
     }
     this.themeContext = deepMerge(this.parentTheme || getDefaultTheme(), tempTheme);
-    this.setCurrentColorTheme();
     this.updateContext();
-  }
-  setCurrentColorTheme() {
-    this.currentColorTheme = this.themeContext.theme === 'dark' ? this.themeContext.darkColor : this.themeContext.lightColor;
   }
   render() {
     return (
@@ -59,20 +52,7 @@ export class FsThemeProvider {
         class={{
           'fs-theme-provider': true,
         }}
-        style={{
-          '--fs-color-primary': this.currentColorTheme.primaryColor,
-          '--fs-color-primary-text': this.currentColorTheme.primaryButtonTextColor,
-          '--fs-color-primary-hover': this.currentColorTheme.primaryColorLight,
-          '--fs-color-primary-active': this.currentColorTheme.primaryColorDark,
-          '--fs-color-bg': this.currentColorTheme.backgroundColor,
-          '--fs-color-bg-sub': this.currentColorTheme.subBackgroundColor,
-          '--fs-color-bg-extra': this.currentColorTheme.extraBackgroundColor,
-          '--fs-color-text': this.currentColorTheme.textColor,
-          '--fs-color-text-sub': this.currentColorTheme.subTextColor,
-          '--fs-radius': this.themeContext.borderRadius + 'px',
-          '--fs-button-radius': this.themeContext.buttonRadius + 'px',
-          '--fs-input-radius': this.themeContext.inputRadius + 'px',
-        }}
+        style={generateCssVars(this.themeContext)}
       >
         <slot></slot>
       </Host>
