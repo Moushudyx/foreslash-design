@@ -22,7 +22,7 @@
   position: relative;
   min-width: 320px;
   max-width: 90vw;
-  background: var(--fs-color-bg, #fff);
+  background: var(--fs-color-bg-extra, var(--fs-color-bg, #fff));
   color: var(--fs-color-text, #1f2a37);
   border-radius: var(--fs-radius, 8px);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);

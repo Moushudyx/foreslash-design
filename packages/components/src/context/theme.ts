@@ -9,6 +9,8 @@ export type ThemeColor = {
   backgroundColor: string;
   /** 次背景颜色 */
   subBackgroundColor: string;
+  /** 部分组件的背景颜色, 如果不写, 则直接使用 `backgroundColor` */
+  extraBackgroundColor?: string;
   /** 主要颜色 */
   primaryColor: string;
   /** 主要颜色浅色, 如果不写, 则直接使用 `primaryColor` */
@@ -58,6 +60,7 @@ function getDefaultDarkThemeColor(): ThemeColor {
     subTextColor: '#d9edff',
     backgroundColor: '#001d36',
     subBackgroundColor: '#00315d',
+    extraBackgroundColor: '#001d36',
     primaryColor: '#0077e1',
     primaryColorLight: '#0f8eff',
     primaryColorDark: '#005fb3',
@@ -70,6 +73,7 @@ function getDefaultLightThemeColor(): ThemeColor {
     subTextColor: '#00315d',
     backgroundColor: '#d9edff',
     subBackgroundColor: '#b9deff',
+    extraBackgroundColor: '#ffffff',
     primaryColor: '#005fb3',
     primaryColorLight: '#0077e1',
     primaryColorDark: '#004787',
@@ -84,6 +88,7 @@ function getDefaultLightThemeColor(): ThemeColor {
 export function handleThemeColor(color: ThemeColor): Required<ThemeColor> {
   return {
     ...color,
+    extraBackgroundColor: color.extraBackgroundColor ?? color.backgroundColor,
     primaryColorLight: color.primaryColorLight ?? color.primaryColor,
     primaryColorDark: color.primaryColorDark ?? color.primaryColor,
     primaryColorText: color.primaryColorText ?? color.primaryColor,

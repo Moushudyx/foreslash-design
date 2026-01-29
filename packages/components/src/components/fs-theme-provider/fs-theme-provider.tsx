@@ -66,6 +66,7 @@ export class FsThemeProvider {
           '--fs-color-primary-active': this.currentColorTheme.primaryColorDark,
           '--fs-color-bg': this.currentColorTheme.backgroundColor,
           '--fs-color-bg-sub': this.currentColorTheme.subBackgroundColor,
+          '--fs-color-bg-extra': this.currentColorTheme.extraBackgroundColor,
           '--fs-color-text': this.currentColorTheme.textColor,
           '--fs-color-text-sub': this.currentColorTheme.subTextColor,
           '--fs-radius': this.themeContext.borderRadius + 'px',
