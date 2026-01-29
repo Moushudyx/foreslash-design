@@ -5,15 +5,19 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
+import { ButtonIconPosition, ButtonSize, ButtonType } from "./components/fs-button/fs-button";
 import { Theme } from "./context/theme";
 import { ToastType } from "./components/fs-toast/fs-toast";
-export { ButtonSize, ButtonType } from "./components/fs-button/fs-button";
+export { ButtonIconPosition, ButtonSize, ButtonType } from "./components/fs-button/fs-button";
 export { Theme } from "./context/theme";
 export { ToastType } from "./components/fs-toast/fs-toast";
 export namespace Components {
     interface FsButton {
         "disabled": boolean;
+        /**
+          * @default 'left'
+         */
+        "iconPosition": ButtonIconPosition;
         "loading": boolean;
         /**
           * @default 'middle'
@@ -186,6 +190,10 @@ declare global {
 declare namespace LocalJSX {
     interface FsButton {
         "disabled"?: boolean;
+        /**
+          * @default 'left'
+         */
+        "iconPosition"?: ButtonIconPosition;
         "loading"?: boolean;
         /**
           * @default 'middle'

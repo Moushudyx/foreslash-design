@@ -4,6 +4,7 @@ import { Component, Host, Prop, h, Element, State } from '@stencil/core';
 
 export type ButtonType = 'primary' | 'secondary' | 'flat' | 'link' | 'default';
 export type ButtonSize = 'small' | 'large' | 'middle' | 'default';
+export type ButtonIconPosition = 'left' | 'right';
 
 @Component({
   tag: 'fs-button',
@@ -19,6 +20,8 @@ export class FsButton {
   disabled: boolean;
   @Prop()
   loading: boolean;
+  @Prop()
+  iconPosition: ButtonIconPosition = 'left';
   @Element() el: HTMLElement;
   @State() private hasIconSlot = false;
   private iconSlotEl?: HTMLSlotElement;
@@ -70,6 +73,7 @@ export class FsButton {
           'fs-button-disabled': this.disabled || this.loading,
           'fs-button-loading': !!this.loading,
           'fs-button-with-icon': this.hasIconSlot || this.loading,
+          'fs-button-icon-right': this.iconPosition === 'right',
         }}
         role="button"
         aria-disabled={String(!!(this.disabled || this.loading))}

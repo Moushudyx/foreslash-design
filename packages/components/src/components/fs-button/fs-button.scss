@@ -146,6 +146,17 @@
     margin-right: 8px;
   }
 }
+// 图标在右侧
+:host(.fs-button-icon-right) {
+  .fs-button__icon {
+    margin-right: 0;
+    margin-left: 8px;
+    order: 2;
+  }
+  .fs-button__content {
+    order: 1;
+  }
+}
 // 加载态保持 spinner 占位
 :host(.fs-button-loading) {
   .fs-button__icon {

@@ -91,6 +91,20 @@ export default function () {
           链接按钮
         </fs-button>
       </p>
+      <p>
+        <fs-button type="primary" iconPosition="right">
+          <span slot="icon">&#9733;</span>
+          图标按钮
+        </fs-button>
+        <fs-button type="primary" loading iconPosition="right">
+          <span slot="icon">&#9733;</span>
+          加载中
+        </fs-button>
+        <fs-button type="link" iconPosition="right">
+          <span slot="icon">&#10140;</span>
+          链接按钮
+        </fs-button>
+      </p>
     </>
   )
 }
