@@ -53,9 +53,9 @@ function createDialog(options: DialogOptions): DialogHandle {
   const cleanup = () => {
     if (closed) return;
     closed = true;
-    el.removeEventListener('fs-dialog-confirm', onConfirm as EventListener);
-    el.removeEventListener('fs-dialog-cancel', onCancel as EventListener);
-    el.removeEventListener('fs-dialog-close', onClose as EventListener);
+    el.removeEventListener('confirm', onConfirm as EventListener);
+    el.removeEventListener('cancel', onCancel as EventListener);
+    el.removeEventListener('close', onClose as EventListener);
     if (el.parentElement) el.parentElement.removeChild(el);
   };
 
@@ -73,9 +73,9 @@ function createDialog(options: DialogOptions): DialogHandle {
     cleanup();
   };
 
-  el.addEventListener('fs-dialog-confirm', onConfirm as EventListener);
-  el.addEventListener('fs-dialog-cancel', onCancel as EventListener);
-  el.addEventListener('fs-dialog-close', onClose as EventListener);
+  el.addEventListener('confirm', onConfirm as EventListener);
+  el.addEventListener('cancel', onCancel as EventListener);
+  el.addEventListener('close', onClose as EventListener);
 
   root.appendChild(el);
 

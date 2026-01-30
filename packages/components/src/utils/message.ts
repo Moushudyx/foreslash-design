@@ -51,12 +51,12 @@ function createToast(options: ToastOptions): ToastHandle {
    * 清理 DOM 与事件监听
    */
   const cleanup = () => {
-    el.removeEventListener('fs-toast-close', onClose as EventListener);
+    el.removeEventListener('close', onClose as EventListener);
     if (el.parentElement) el.parentElement.removeChild(el);
   };
 
   const onClose = () => cleanup();
-  el.addEventListener('fs-toast-close', onClose as EventListener);
+  el.addEventListener('close', onClose as EventListener);
 
   root.appendChild(el);
 

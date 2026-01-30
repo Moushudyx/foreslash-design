@@ -18,9 +18,9 @@
 
 ## Events
 
-| Event            | Description  | Type                                              |
-| ---------------- | ------------ | ------------------------------------------------- |
-| `fs-toast-close` | 关闭事件（包含关闭原因） | `CustomEvent<{ reason: "timeout" \| "manual"; }>` |
+| Event   | Description  | Type                                              |
+| ------- | ------------ | ------------------------------------------------- |
+| `close` | 关闭事件（包含关闭原因） | `CustomEvent<{ reason: "timeout" \| "manual"; }>` |
 
 
 ## Methods

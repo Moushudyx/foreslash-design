@@ -54,4 +54,4 @@ export default function () {
 
 ## 事件
 
-- `fs-toast-close`：关闭事件，包含 `reason`（`timeout | manual`）。
+- `close`：关闭事件，包含 `reason`（`timeout | manual`）。

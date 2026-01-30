@@ -133,9 +133,9 @@ declare global {
         new (): HTMLFsButtonElement;
     };
     interface HTMLFsDialogElementEventMap {
-        "fs-dialog-confirm": void;
-        "fs-dialog-cancel": void;
-        "fs-dialog-close": { reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' };
+        "confirm": void;
+        "cancel": void;
+        "close": { reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' };
     }
     interface HTMLFsDialogElement extends Components.FsDialog, HTMLStencilElement {
         addEventListener<K extends keyof HTMLFsDialogElementEventMap>(type: K, listener: (this: HTMLFsDialogElement, ev: FsDialogCustomEvent<HTMLFsDialogElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -164,7 +164,7 @@ declare global {
         new (): HTMLFsThemeProviderElement;
     };
     interface HTMLFsToastElementEventMap {
-        "fs-toast-close": { reason: 'timeout' | 'manual' };
+        "close": { reason: 'timeout' | 'manual' };
     }
     interface HTMLFsToastElement extends Components.FsToast, HTMLStencilElement {
         addEventListener<K extends keyof HTMLFsToastElementEventMap>(type: K, listener: (this: HTMLFsToastElement, ev: FsToastCustomEvent<HTMLFsToastElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -240,15 +240,15 @@ declare namespace LocalJSX {
         /**
           * 取消事件
          */
-        "onFs-dialog-cancel"?: (event: FsDialogCustomEvent<void>) => void;
+        "onCancel"?: (event: FsDialogCustomEvent<void>) => void;
         /**
           * 关闭事件（包含关闭原因）
          */
-        "onFs-dialog-close"?: (event: FsDialogCustomEvent<{ reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' }>) => void;
+        "onClose"?: (event: FsDialogCustomEvent<{ reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' }>) => void;
         /**
           * 确认事件
          */
-        "onFs-dialog-confirm"?: (event: FsDialogCustomEvent<void>) => void;
+        "onConfirm"?: (event: FsDialogCustomEvent<void>) => void;
         /**
           * 是否显示
           * @default false
@@ -289,7 +289,7 @@ declare namespace LocalJSX {
         /**
           * 关闭事件（包含关闭原因）
          */
-        "onFs-toast-close"?: (event: FsToastCustomEvent<{ reason: 'timeout' | 'manual' }>) => void;
+        "onClose"?: (event: FsToastCustomEvent<{ reason: 'timeout' | 'manual' }>) => void;
         /**
           * 是否显示
           * @default false

@@ -70,6 +70,6 @@ export default function () {
 
 ## 事件
 
-- `fs-dialog-confirm`：点击确认。
-- `fs-dialog-cancel`：点击取消。
-- `fs-dialog-close`：关闭事件，包含 `reason`（`confirm | cancel | close | mask | esc`）。
+- `confirm`：点击确认。
+- `cancel`：点击取消。
+- `close`：关闭事件，包含 `reason`（`confirm | cancel | close | mask | esc`）。

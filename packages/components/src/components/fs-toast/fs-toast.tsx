@@ -41,7 +41,7 @@ export class FsToast {
   /**
    * 关闭事件（包含关闭原因）
    */
-  @Event({ eventName: 'fs-toast-close' })
+  @Event({ eventName: 'close' })
   toastClose: EventEmitter<{ reason: 'timeout' | 'manual' }>;
 
   private timer?: number;

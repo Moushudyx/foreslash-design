@@ -64,19 +64,19 @@ export class FsDialog {
   /**
    * 确认事件
    */
-  @Event({ eventName: 'fs-dialog-confirm' })
+  @Event({ eventName: 'confirm' })
   dialogConfirm: EventEmitter<void>;
 
   /**
    * 取消事件
    */
-  @Event({ eventName: 'fs-dialog-cancel' })
+  @Event({ eventName: 'cancel' })
   dialogCancel: EventEmitter<void>;
 
   /**
    * 关闭事件（包含关闭原因）
    */
-  @Event({ eventName: 'fs-dialog-close' })
+  @Event({ eventName: 'close' })
   dialogClose: EventEmitter<{ reason: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' }>;
 
   private closeTimer?: number;
