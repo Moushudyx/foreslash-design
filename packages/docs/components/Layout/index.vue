@@ -2,7 +2,7 @@
   <fs-theme-provider :theme="{ theme: isDark ? 'dark' : 'light' }"><Layout></Layout></fs-theme-provider>
 </template>
 <script lang="ts" setup>
-import { useData } from 'vitepress';
+import { inBrowser, useData } from 'vitepress';
 import { nextTick, provide } from 'vue';
 import DefaultTheme from 'vitepress/theme';
 import { randomChoice } from 'foreslash';
@@ -12,13 +12,19 @@ const { Layout } = DefaultTheme;
 const { isDark } = useData();
 
 const enableTransitions = () =>
-  'startViewTransition' in document && window && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  inBrowser &&
+  typeof document !== 'undefined' &&
+  typeof window !== 'undefined' &&
+  'startViewTransition' in document &&
+  window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   if (!enableTransitions()) {
     isDark.value = !isDark.value;
     return;
   }
+
+  if (!inBrowser || typeof document === 'undefined') return;
 
   await document.startViewTransition(async () => {
     isDark.value = !isDark.value;
