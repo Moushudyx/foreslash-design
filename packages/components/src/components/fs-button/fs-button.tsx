@@ -12,8 +12,7 @@ export type ButtonIconPosition = 'left' | 'right';
   shadow: true,
 })
 export class FsButton {
-  @Prop()
-  class?: string
+  @Element() el: HTMLElement;
   @Prop()
   type: ButtonType = 'secondary';
   @Prop()
@@ -24,7 +23,6 @@ export class FsButton {
   loading: boolean;
   @Prop()
   iconPosition: ButtonIconPosition = 'left';
-  @Element() el: HTMLElement;
   @State() private hasIconSlot = false;
   private iconSlotEl?: HTMLSlotElement;
 
@@ -60,12 +58,23 @@ export class FsButton {
       node => node.nodeType === 1 || (node.nodeType === 3 && !!node.textContent?.trim())
     );
   }
+  private getUserClassMap() {
+    const className = this.el?.getAttribute('class') || '';
+    return className
+      .split(/\s+/)
+      .filter(Boolean)
+      .reduce<Record<string, boolean>>((acc, cls) => {
+        acc[cls] = true;
+        return acc;
+      }, {});
+  }
+
   render() {
     const showSpinner = this.loading;
     return (
       <Host
         class={{
-          [this.class || '']: true,
+          ...this.getUserClassMap(),
           'fs-button': true,
           'fs-button-primary': this.type === 'primary',
           'fs-button-default': ['secondary', '', 'default', undefined, null].includes(this.type),

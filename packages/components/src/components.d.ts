@@ -13,7 +13,6 @@ export { Theme } from "./context/theme";
 export { ToastType } from "./components/fs-toast/fs-toast";
 export namespace Components {
     interface FsButton {
-        "class"?: string;
         "disabled": boolean;
         /**
           * @default 'left'
@@ -190,7 +189,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface FsButton {
-        "class"?: string;
         "disabled"?: boolean;
         /**
           * @default 'left'

@@ -9,7 +9,6 @@
 
 | Property       | Attribute       | Description | Type                                                        | Default       |
 | -------------- | --------------- | ----------- | ----------------------------------------------------------- | ------------- |
-| `class`        | `class`         |             | `string`                                                    | `undefined`   |
 | `disabled`     | `disabled`      |             | `boolean`                                                   | `undefined`   |
 | `iconPosition` | `icon-position` |             | `"left" \| "right"`                                         | `'left'`      |
 | `loading`      | `loading`       |             | `boolean`                                                   | `undefined`   |
