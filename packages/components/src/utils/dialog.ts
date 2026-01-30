@@ -61,14 +61,15 @@ function createDialog(options: DialogOptions): DialogHandle {
 
   const onConfirm = () => {
     options.onConfirm?.();
-    cleanup();
   };
   const onCancel = () => {
     options.onCancel?.();
-    cleanup();
   };
-  const onClose = () => {
-    options.onClose?.();
+  const onClose = (ev: Event) => {
+    const detail = (ev as CustomEvent<{ reason?: 'confirm' | 'cancel' | 'close' | 'mask' | 'esc' }>).detail;
+    if (detail?.reason === 'close' || detail?.reason === 'mask' || detail?.reason === 'esc') {
+      options.onClose?.();
+    }
     cleanup();
   };
 

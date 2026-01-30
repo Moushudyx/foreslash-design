@@ -20,6 +20,8 @@
 
 :host(.fs-dialog--closing) {
   pointer-events: none;
+  opacity: 1;
+  visibility: visible;
   animation: fs-dialog-fade-out 200ms ease-in forwards;
 }
 
