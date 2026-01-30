@@ -32,7 +32,7 @@ export class ContextSubscriptionCenter<T extends UnknownContext> {
   constructor(context: T, defaultValue: ContextType<T>) {
     this.context = context;
     this.defaultValue = defaultValue;
-    if (!isNil(document) && document.body) {
+    if (!isNil(globalThis.document) && document.body) {
       // 对于一开始没有父组件的情况, 在 body 上监听 context-request 事件, 防止子组件没有绑定任何父组件
       document.body.addEventListener('context-request', (event) => {
         if (event.context === this.context) {
